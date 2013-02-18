@@ -36,7 +36,7 @@ public class ExecutableResourceComponent extends ResourceComponent implements Ex
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 5);
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 2, 2);
         add(button, gridBagConstraints);
         button.setEnabled(false);
     }
