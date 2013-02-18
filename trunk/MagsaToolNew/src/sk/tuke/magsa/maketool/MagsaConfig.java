@@ -8,8 +8,10 @@ import java.util.logging.Logger;
 
 public final class MagsaConfig {
     private static final MagsaConfig instance = new MagsaConfig();
+    
+    private final ClassLoader currentThreadClassLoader = Thread.currentThread().getContextClassLoader();
 
-    private String projectPath = "c:/Projects/magsa";
+    private String projectPath = "";
 
     private String modelDir = "model";
 
@@ -20,17 +22,6 @@ public final class MagsaConfig {
     private String uiFile = "ui.xml";
 
     private MagsaConfig() {
-        //TODO: odpamatat a nastavit class loader lebo pri reload ho budem musiet vytvorit nanovo
-        try {
-            URL url = new URL("file:/" + projectPath + "/build/classes/");
-            URL[] urls = new URL[]{url};
-
-            ClassLoader currentThreadClassLoader = Thread.currentThread().getContextClassLoader();
-            ClassLoader loader = new URLClassLoader(urls, currentThreadClassLoader);
-            Thread.currentThread().setContextClassLoader(loader);
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     public static MagsaConfig getInstance() {
@@ -47,6 +38,17 @@ public final class MagsaConfig {
     }
 
     public void setProjectPath(String projectPath) {
+        //TODO: odpamatat a nastavit class loader lebo pri reload ho budem musiet vytvorit nanovo
+        //  asi spravene
+        try {
+            URL url = new URL("file:/" + projectPath + "/build/classes/");
+            URL[] urls = new URL[]{url};
+            
+            ClassLoader loader = new URLClassLoader(urls, currentThreadClassLoader);
+            Thread.currentThread().setContextClassLoader(loader);
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.projectPath = projectPath;
     }
 
