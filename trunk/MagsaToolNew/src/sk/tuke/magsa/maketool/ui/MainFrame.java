@@ -211,14 +211,14 @@ public class MainFrame extends javax.swing.JFrame {
 
         jSplitPane2.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
-        tasks.addTab("tab1", task11);
-        tasks.addTab("tab2", task21);
-        tasks.addTab("tab3", task31);
-        tasks.addTab("tab4", task41);
-        tasks.addTab("tab5", task51);
-        tasks.addTab("tab6", task61);
-        tasks.addTab("tab7", task71);
-        tasks.addTab("tab8", task81);
+        tasks.addTab("Cvičenie 2 (úloha 1)", task11);
+        tasks.addTab("Cvičenie 3 (úloha 2)", task21);
+        tasks.addTab("Cvičenie 5 (úloha 3)", task31);
+        tasks.addTab("Cvičenie 6 (úloha 4)", task41);
+        tasks.addTab("Cvičenie 8 (úloha 5)", task51);
+        tasks.addTab("Cvičenie 9 (úloha 6)", task61);
+        tasks.addTab("Cvičenie 11 (úloha 7)", task71);
+        tasks.addTab("Cvičenie 12 (úloha 8)", task81);
 
         jSplitPane2.setLeftComponent(tasks);
 
@@ -237,8 +237,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 547, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE))
+                        .addGap(0, 618, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
