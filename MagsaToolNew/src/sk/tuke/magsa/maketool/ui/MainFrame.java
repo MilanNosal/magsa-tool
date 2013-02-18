@@ -2,15 +2,15 @@ package sk.tuke.magsa.maketool.ui;
 
 import java.awt.Component;
 import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.ProjectHelper;
 import sk.tuke.magsa.maketool.MagsaConfig;
 import sk.tuke.magsa.maketool.PrintProvider;
 import sk.tuke.magsa.maketool.task.AbstractTaskPanel;
 
 public class MainFrame extends javax.swing.JFrame {
+
     private final PrintProvider printProvider;
 
     /**
@@ -25,11 +25,10 @@ public class MainFrame extends javax.swing.JFrame {
         jTextField2.setText(MagsaConfig.getInstance().getUiFile());
 
         printProvider = new PrintProviderImpl(modelPane, consolePane);
-        
+
         configure(printProvider);
-        init();
     }
-    
+
     private void configure(PrintProvider printProvider) {
         for (Component component : tasks.getComponents()) {
             if (component instanceof AbstractTaskPanel) {
@@ -37,7 +36,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private void init() {
         for (Component component : tasks.getComponents()) {
             if (component instanceof AbstractTaskPanel) {
@@ -46,70 +45,83 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
+    private void reset() {
+        for (Component component : tasks.getComponents()) {
+            if (component instanceof AbstractTaskPanel) {
+                ((AbstractTaskPanel) component).reset();
+            }
+        }
+    }
+
     private void openProject() {
         //File curr = new File(System.getProperty("user.dir"));
         //TODO - opravit nastavenie cesty
-        File curr = new File(System.getProperty("user.dir") + "/..");
-        JFileChooser chooser = new JFileChooser();
-        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        chooser.setCurrentDirectory(curr);
-        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            try {
-                curr = chooser.getSelectedFile();
-                printProvider.printInfo("Načítavam projekt z adresára " + curr);
-                MagsaConfig.getInstance().setProjectPath(curr.getCanonicalPath());
+        File currentDirectory = new File(System.getProperty("user.dir") + "/..");
+        try {
+            if (!currentDirectory.getCanonicalPath().endsWith("magsa")) {
+                JFileChooser chooser = new JFileChooser();
+                chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                chooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+                if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+                    currentDirectory = chooser.getSelectedFile();
+                } else {
+                    return;
+                }
             }
-            catch (IOException ex) {
-                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            //        if (!curr.getAbsolutePath().endsWith("magsa")) {
-            //            JFileChooser chooser = new JFileChooser();
-            //            chooser.setLocation(50, 50);
-            //            chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            //            chooser.setDialogTitle("Vyberte adresár projektu MAGSA");
-            //
-            //            chooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
-            //            chooser.showOpenDialog(this);
-            //            curr = chooser.getSelectedFile();
-            //        }
-            //
-            //        try {
-            //            magsaLogic.setMagsaPath(curr.getAbsolutePath());
-            //            magsaLogic.init();
-            //        } catch (Exception ex) {
-            //            //Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-            //            getOutput().printError("Chyba pri načítavaní projektu: ").printError(ex.getMessage()).printError("Presvedčte sa, že ste vybrali správny adresár. Pre detailnejšie informácie pozrite stacktrace nižšie.");
-            //            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            //            PrintStream ps = new PrintStream(baos);
-            //            ex.printStackTrace(ps);
-            //            getOutput().printError("\nStackTrace:").printError(baos.toString());
-            //        }
-            
+            printProvider.printInfo("Načítavam projekt z adresára " + currentDirectory);
+            MagsaConfig.getInstance().setProjectPath(currentDirectory.getCanonicalPath());
+
+            buildProject();
+
+            // maly test pre istotu -- ale tn by sa mohol vyhodit
+            MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.metamodel.Model");
+            ClassLoader.getSystemClassLoader().getResourceAsStream("generator.properties");
+
+            reset();
+            init();
+
+            printProvider.printInfo("Projekt bol úspešne načítaný");
+        } catch (Exception ex) {
+            printProvider.printError("Chyba: " + ex.getMessage());
         }
+    }
 
+    private void refreshProject() {
+        try {
+            printProvider.printInfo("Obnovujem projekt z adresára " + MagsaConfig.getInstance().getProjectPath());
+            buildProject();
 
-//        if (!curr.getAbsolutePath().endsWith("magsa")) {
-//            JFileChooser chooser = new JFileChooser();
-//            chooser.setLocation(50, 50);
-//            chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-//            chooser.setDialogTitle("Vyberte adresár projektu MAGSA");
-//
-//            chooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
-//            chooser.showOpenDialog(this);
-//            curr = chooser.getSelectedFile();
-//        }
-//
-//        try {
-//            magsaLogic.setMagsaPath(curr.getAbsolutePath());
-//            magsaLogic.init();
-//        } catch (Exception ex) {
-//            //Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-//            getOutput().printError("Chyba pri načítavaní projektu: ").printError(ex.getMessage()).printError("Presvedčte sa, že ste vybrali správny adresár. Pre detailnejšie informácie pozrite stacktrace nižšie.");
-//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//            PrintStream ps = new PrintStream(baos);
-//            ex.printStackTrace(ps);
-//            getOutput().printError("\nStackTrace:").printError(baos.toString());
-//        }
+            // Aj toto predpokladam ze treba -- da sa nahradit volanim setprojectpath s povodnou hodnotou
+            // resp. da sa to dat do buildu, ale potom to bude zbytocne dvakrat volane
+            // pri otvarani noveho projektu, pretoze pred zacatim buildu uz musi
+            // byt projectpath nastaveny
+            MagsaConfig.getInstance().refreshClassLoader();
+
+            // maly test pre istotu -- ale tn by sa mohol vyhodit
+            MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.metamodel.Model");
+            ClassLoader.getSystemClassLoader().getResourceAsStream("generator.properties");
+
+            reset();
+            init();
+
+            printProvider.printInfo("Projekt bol úspešne obnovený");
+        } catch (Exception ex) {
+            printProvider.printError("Chyba: " + ex.getMessage());
+        }
+    }
+
+    private void buildProject() throws Exception {
+        File buildFile = new File(
+                MagsaConfig.getInstance().getProjectPath() + "\\nbproject\\build-impl.xml");
+        Project project = new Project();
+        project.setUserProperty("ant.file", buildFile.getAbsolutePath());
+        project.init();
+
+        ProjectHelper helper = ProjectHelper.getProjectHelper();
+        helper.parse(project, buildFile);
+
+        project.executeTarget("clean");
+        project.executeTarget("compile");
     }
 
     /**
@@ -325,15 +337,15 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
-        //magsaLogic.setModeldef(jTextField1.getText());
+        MagsaConfig.getInstance().setModelFile(jTextField1.getText());
     }//GEN-LAST:event_jTextField1KeyReleased
 
     private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
-        //magsaLogic.setUidef(jTextField2.getText());
+        MagsaConfig.getInstance().setUiFile(jTextField2.getText());
     }//GEN-LAST:event_jTextField2KeyReleased
 
     private void jTextField3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyReleased
-        //magsaLogic.setIdsldef(jTextField3.getText());
+        MagsaConfig.getInstance().setConstraintClass(jTextField3.getText());
     }//GEN-LAST:event_jTextField3KeyReleased
 
     private void nacitatMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nacitatMenuActionPerformed
@@ -341,19 +353,17 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_nacitatMenuActionPerformed
 
     private void zavrietMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zavrietMenuActionPerformed
-//        magsaLogic.reset();
+        reset();
+        // tu by malo toto stacit, znemozni to pracovat s polozkami a pri
+        // novom nacitavani sa resetne aj zvysok, tzn. projectpath atd.
     }//GEN-LAST:event_zavrietMenuActionPerformed
 
     private void jTextField4KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyReleased
-//        magsaLogic.setModelDirdef(jTextField4.getText());
+        MagsaConfig.getInstance().setModelDir(jTextField4.getText().trim());
     }//GEN-LAST:event_jTextField4KeyReleased
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-//        try {
-//            magsaLogic.restart();
-//        } catch (Exception ex) {
-//            getOutput().printError("Tu by som sa nemal nikdy dostat.");
-//        }
+        refreshProject();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel centerPanel;
