@@ -1,0 +1,61 @@
+ALVF.ui.swing.diagram.SwingStaticResource - sk.tuke.magsa.maketool.component.ResourceComponent
+ALVF.ui.swing.diagram.SwingExecutableResource - sk.tuke.magsa.maketool.component.ExecutableResourceComponent
+ALVF.ui.swing.diagram.Arrow - sk.tuke.magsa.maketool.component.Arrow
+<Property name="output"
+
+
+
+public class Task1 extends AbstractTaskPanel {
+    /** Creates new form Task1 */
+    public Task1() {
+        initComponents();
+    }
+
+    @Override
+    public void configure(PrintProvider printProvider) {
+        parser.addInputs(entityLang);
+        parser.setOutput(model);
+        parser.setAction(new ActionWrapper(new LineParser(), printProvider));        
+    }
+    
+    @Override
+    public void init() {
+        entityLang.setState(State.COMPLETED);
+    }
+
+------------------------------------------------------------------------------------
+
+modelDir
+constraintClass
+modelFile
+uiFile
+
+lineParser
+externalParser
+yajco
+uiProcessor
+
+model
+model2
+metamodel
+
+constraintBuilder
+
+constraintBuilder
+
+
+databaseScriptGenerator
+entityClassGenerator
+daoInterfaceGenerator
+daoImplementationGenerator
+uiFormGenerator
+uiTableGenerator
+applicationGenerator
+
+databaseScript
+entityClass
+daoInterface
+daoImplementation
+uiForm
+uiTable
+application
