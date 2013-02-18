@@ -2,6 +2,8 @@ package sk.tuke.magsa.maketool.ui;
 
 import java.awt.Component;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.ProjectHelper;
@@ -85,6 +87,7 @@ public class MainFrame extends javax.swing.JFrame {
             printProvider.printInfo("Projekt bol úspešne načítaný");
         } catch (Exception ex) {
             printProvider.printError("Chyba: " + ex.getMessage());
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, "Error opening project", ex);
         }
     }
 
@@ -110,6 +113,7 @@ public class MainFrame extends javax.swing.JFrame {
             printProvider.printInfo("Projekt bol úspešne obnovený");
         } catch (Exception ex) {
             printProvider.printError("Chyba: " + ex.getMessage());
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, "Error refreshing project", ex);
         }
     }
 
