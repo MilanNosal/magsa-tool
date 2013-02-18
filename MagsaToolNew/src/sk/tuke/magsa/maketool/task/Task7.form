@@ -1,0 +1,260 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,21,0,0,4,46"/>
+  </AuxValues>
+
+  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+    <Property name="useNullLayout" type="boolean" value="false"/>
+  </Layout>
+  <SubComponents>
+    <Component class="sk.tuke.magsa.maketool.component.ResourceComponent" name="metamodel">
+      <Properties>
+        <Property name="label" type="java.lang.String" value="Syntax jazyka ent&#xed;t&lt;br&gt; definovan&#xe1; anotovan&#xfd;mi&lt;br&gt;kon&#x161;tuktormi modelu"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="160" y="100" width="130" height="80"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="sk.tuke.magsa.maketool.component.ExecutableResourceComponent" name="externalParser">
+      <Properties>
+        <Property name="actionName" type="java.lang.String" value="Parse"/>
+        <Property name="label" type="java.lang.String" value="Vygenerovan&#xfd;&lt;br&gt;jazykov&#xfd; procesor"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="330" y="240" width="120" height="60"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="sk.tuke.magsa.maketool.component.Arrow" name="arrow2">
+      <Properties>
+        <Property name="barbStyle" type="sk.tuke.magsa.maketool.component.Arrow$BarbStyle" editor="org.netbeans.modules.form.editors.EnumEditor">
+          <Value id="FILLED"/>
+        </Property>
+        <Property name="orientation" type="sk.tuke.magsa.maketool.component.Arrow$Orientation" editor="org.netbeans.modules.form.editors.EnumEditor">
+          <Value id="NORTHEAST"/>
+        </Property>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="250" y="320" width="370" height="60"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="sk.tuke.magsa.maketool.component.ExecutableResourceComponent" name="yajco">
+      <Properties>
+        <Property name="actionName" type="java.lang.String" value="Generate"/>
+        <Property name="label" type="java.lang.String" value="Yajco"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="340" y="110" width="100" height="60"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="sk.tuke.magsa.maketool.component.ResourceComponent" name="modelFile">
+      <Properties>
+        <Property name="label" type="java.lang.String" value="Z&#xe1;pis v jazyku ent&#xed;t&lt;br&gt;(model.el)"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="160" y="240" width="105" height="55"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="sk.tuke.magsa.maketool.component.ResourceComponent" name="uiFile">
+      <Properties>
+        <Property name="label" type="java.lang.String" value="Zapis v jazyku UI&lt;br&gt; (ui.xml)"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="160" y="350" width="100" height="55"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="sk.tuke.magsa.maketool.component.ResourceComponent" name="model">
+      <Properties>
+        <Property name="label" type="java.lang.String" value="Model"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="500" y="240" width="70" height="60"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="sk.tuke.magsa.maketool.component.ExecutableResourceComponent" name="uiProcessor">
+      <Properties>
+        <Property name="actionName" type="java.lang.String" value="Compose"/>
+        <Property name="label" type="java.lang.String" value="UI Processor"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="620" y="280" width="90" height="50"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="sk.tuke.magsa.maketool.component.ResourceComponent" name="model2">
+      <Properties>
+        <Property name="label" type="java.lang.String" value="Model"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="760" y="280" width="70" height="50"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="sk.tuke.magsa.maketool.component.Arrow" name="arrow3">
+      <Properties>
+        <Property name="barbStyle" type="sk.tuke.magsa.maketool.component.Arrow$BarbStyle" editor="org.netbeans.modules.form.editors.EnumEditor">
+          <Value id="FILLED"/>
+        </Property>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="270" y="260" width="40" height="20"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="sk.tuke.magsa.maketool.component.Arrow" name="arrow4">
+      <Properties>
+        <Property name="barbStyle" type="sk.tuke.magsa.maketool.component.Arrow$BarbStyle" editor="org.netbeans.modules.form.editors.EnumEditor">
+          <Value id="FILLED"/>
+        </Property>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="290" y="130" width="40" height="20"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="sk.tuke.magsa.maketool.component.Arrow" name="arrow13">
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="460" y="260" width="30" height="20"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="sk.tuke.magsa.maketool.component.Arrow" name="arrow14">
+      <Properties>
+        <Property name="barbStyle" type="sk.tuke.magsa.maketool.component.Arrow$BarbStyle" editor="org.netbeans.modules.form.editors.EnumEditor">
+          <Value id="FILLED"/>
+        </Property>
+        <Property name="orientation" type="sk.tuke.magsa.maketool.component.Arrow$Orientation" editor="org.netbeans.modules.form.editors.EnumEditor">
+          <Value id="SOUTHEAST"/>
+        </Property>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="580" y="270" width="20" height="30"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="sk.tuke.magsa.maketool.component.Arrow" name="arrow15">
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="720" y="290" width="30" height="30"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="sk.tuke.magsa.maketool.component.Arrow" name="arrow22">
+      <Properties>
+        <Property name="orientation" type="sk.tuke.magsa.maketool.component.Arrow$Orientation" editor="org.netbeans.modules.form.editors.EnumEditor">
+          <Value id="SOUTH"/>
+        </Property>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="370" y="180" width="40" height="50"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel4">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="99" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="14" style="0"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="Generovanie jazykov&#xe9;ho procesora"/>
+        <Property name="verticalAlignment" type="int" value="1"/>
+        <Property name="opaque" type="boolean" value="true"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="150" y="50" width="310" height="150"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel5">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="99" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="14" style="0"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="verticalAlignment" type="int" value="1"/>
+        <Property name="opaque" type="boolean" value="true"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="320" y="50" width="140" height="260"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="a5" green="f9" red="af" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="18" style="0"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="Kompoz&#xed;cia jazykov"/>
+        <Property name="verticalAlignment" type="int" value="1"/>
+        <Property name="opaque" type="boolean" value="true"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="530" y="0" width="540" height="530"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel3">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="8b" green="b6" red="f1" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="18" style="0"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="F&#xe1;za rozpozn&#xe1;vania"/>
+        <Property name="verticalAlignment" type="int" value="1"/>
+        <Property name="opaque" type="boolean" value="true"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="0" y="0" width="530" height="530"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+  </SubComponents>
+</Form>
