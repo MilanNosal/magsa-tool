@@ -20,7 +20,7 @@ public class ResourceComponent extends AbstractResourceComponent implements Reso
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);        
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);        
         add(label, gridBagConstraints);
     }
 
