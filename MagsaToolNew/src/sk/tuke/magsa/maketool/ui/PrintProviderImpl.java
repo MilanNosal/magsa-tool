@@ -1,6 +1,12 @@
 package sk.tuke.magsa.maketool.ui;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
+import java.io.PrintStream;
 import java.lang.reflect.Method;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,6 +32,7 @@ public class PrintProviderImpl implements PrintProvider {
     private Style blackMono;
     private Style tablesStyle;
     private Style formsStyle;
+    private Console redirectedConsole;
 
     public PrintProviderImpl(JTextPane modelPane, JTextPane consolePane) {
         this.modelPane = modelPane;
@@ -69,7 +76,7 @@ public class PrintProviderImpl implements PrintProvider {
         StyleConstants.setFontFamily(blackMono, "mono");
         StyleConstants.setBold(blackMono, true);
         StyleConstants.setForeground(blackMono, Color.BLACK);
-        
+
         formsStyle = consolePane.getStyledDocument().addStyle("forms_style", null);
         StyleConstants.setFontFamily(formsStyle, "mono");
         StyleConstants.setBold(formsStyle, true);
@@ -79,6 +86,9 @@ public class PrintProviderImpl implements PrintProvider {
         StyleConstants.setFontFamily(tablesStyle, "mono");
         StyleConstants.setBold(tablesStyle, true);
         StyleConstants.setForeground(tablesStyle, new Color(40, 150, 40));
+
+        redirectedConsole = new Console();
+        redirectedConsole.redirect();
     }
 
     @Override
@@ -210,6 +220,104 @@ public class PrintProviderImpl implements PrintProvider {
             modelPane.getStyledDocument().insertString(modelPane.getStyledDocument().getLength(), text, style);
         } catch (BadLocationException ex) {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public class Console implements ActionListener, Runnable {
+
+        private Thread readerStdout;
+        private Thread readerStderr;
+        private boolean quit;
+        private final PipedInputStream pinStdout = new PipedInputStream();
+        private final PipedInputStream pinStderr = new PipedInputStream();
+
+        public void redirect() {
+            try {
+                PipedOutputStream pout = new PipedOutputStream(this.pinStdout);
+                System.setOut(new PrintStream(pout, true));
+            } catch (java.io.IOException ex) {
+                printText("Couldn't redirect STDOUT to this console\n" + ex.getMessage(), consolePane.getStyle("Error"));
+            }
+
+            try {
+                PipedOutputStream pout2 = new PipedOutputStream(this.pinStderr);
+                System.setErr(new PrintStream(pout2, true));
+            } catch (java.io.IOException ex) {
+                printText("Couldn't redirect STDERR to this console\n" + ex.getMessage(), consolePane.getStyle("Error"));
+            }
+
+            quit = false; // signals the Threads that they should exit
+
+            // Starting two seperate threads to read from the PipedInputStreams				
+            //
+            readerStdout = new Thread(this);
+            readerStdout.setDaemon(true);
+            readerStdout.start();
+            //
+            readerStderr = new Thread(this);
+            readerStderr.setDaemon(true);
+            readerStderr.start();
+
+            Runtime.getRuntime().addShutdownHook(new Thread() {
+                @Override
+                public void run() {
+                    quit = true;
+                }
+            });
+        }
+
+        @Override
+        public synchronized void actionPerformed(ActionEvent evt) {
+            consolePane.setText("");
+        }
+
+        @Override
+        public synchronized void run() {
+            try {
+                while (Thread.currentThread() == readerStdout && !quit) {
+                    try {
+                        this.wait(100);
+                    } catch (InterruptedException ie) {
+                    }
+                    if (pinStdout.available() != 0) {
+                        printText(this.readLine(pinStdout) + "\n", consolePane.getStyle("Std"));
+                    }
+                }
+
+                while (Thread.currentThread() == readerStderr && !quit) {
+                    try {
+                        this.wait(100);
+                    } catch (InterruptedException ie) {
+                    }
+                    if (pinStderr.available() != 0) {
+                        printText(this.readLine(pinStderr) + "\n", consolePane.getStyle("Error"));
+                    }
+                }
+            } catch (Exception e) {
+                printText("Console reports an Internal error.\nThe error is: " + e, consolePane.getStyle("Error"));
+            }
+        }
+
+        private void printText(String text, Style style) {
+            try {
+                consolePane.getStyledDocument().insertString(consolePane.getStyledDocument().getLength(), text, style);
+            } catch (BadLocationException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        private synchronized String readLine(PipedInputStream in) throws IOException {
+            String input = "";
+            do {
+                int available = in.available();
+                if (available == 0) {
+                    break;
+                }
+                byte b[] = new byte[available];
+                in.read(b);
+                input = input + new String(b, 0, b.length);
+            } while (!input.endsWith("\n") && !input.endsWith("\r\n") && !quit);
+            return input;
         }
     }
 }
