@@ -179,7 +179,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel6.setText("Rel. cesta k priečinku model:");
         topPanel.add(jLabel6);
 
-        jTextField4.setColumns(20);
+        jTextField4.setColumns(17);
         jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField4KeyReleased(evt);
@@ -190,7 +190,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel5.setText("Trieda s def. interného DSL:");
         topPanel.add(jLabel5);
 
-        jTextField3.setColumns(20);
+        jTextField3.setColumns(17);
         jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField3KeyReleased(evt);
@@ -201,7 +201,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel3.setText("Rel. cesta k model.el:");
         topPanel.add(jLabel3);
 
-        jTextField1.setColumns(20);
+        jTextField1.setColumns(17);
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField1KeyReleased(evt);
@@ -212,7 +212,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel4.setText("Rel. cesta k ui.xml:");
         topPanel.add(jLabel4);
 
-        jTextField2.setColumns(20);
+        jTextField2.setColumns(17);
         jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField2KeyReleased(evt);
@@ -252,8 +252,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 618, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE))
+                        .addGap(0, 512, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
