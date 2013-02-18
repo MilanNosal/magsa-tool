@@ -19,10 +19,10 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
 
-        jTextField4.setText(MagsaConfig.getInstance().getModelDir());
-        jTextField3.setText(MagsaConfig.getInstance().getConstraintClass());
-        jTextField1.setText(MagsaConfig.getInstance().getModelFile());
-        jTextField2.setText(MagsaConfig.getInstance().getUiFile());
+        modelDirTextField.setText(MagsaConfig.getInstance().getModelDir());
+        constraintClassTextField.setText(MagsaConfig.getInstance().getConstraintClass());
+        modelFileTextField.setText(MagsaConfig.getInstance().getModelFile());
+        uiFileTextField.setText(MagsaConfig.getInstance().getUiFile());
 
         printProvider = new PrintProviderImpl(modelPane, consolePane);
 
@@ -138,13 +138,13 @@ public class MainFrame extends javax.swing.JFrame {
 
         topPanel = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        modelDirTextField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        constraintClassTextField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        modelFileTextField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        uiFileTextField = new javax.swing.JTextField();
         centerPanel = new javax.swing.JPanel();
         jSplitPane2 = new javax.swing.JSplitPane();
         tasks = new javax.swing.JTabbedPane();
@@ -179,46 +179,46 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel6.setText("Rel. cesta k priečinku model:");
         topPanel.add(jLabel6);
 
-        jTextField4.setColumns(17);
-        jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+        modelDirTextField.setColumns(17);
+        modelDirTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField4KeyReleased(evt);
+                modelDirTextFieldKeyReleased(evt);
             }
         });
-        topPanel.add(jTextField4);
+        topPanel.add(modelDirTextField);
 
         jLabel5.setText("Trieda s def. interného DSL:");
         topPanel.add(jLabel5);
 
-        jTextField3.setColumns(17);
-        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+        constraintClassTextField.setColumns(17);
+        constraintClassTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField3KeyReleased(evt);
+                constraintClassTextFieldKeyReleased(evt);
             }
         });
-        topPanel.add(jTextField3);
+        topPanel.add(constraintClassTextField);
 
         jLabel3.setText("Rel. cesta k model.el:");
         topPanel.add(jLabel3);
 
-        jTextField1.setColumns(17);
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        modelFileTextField.setColumns(17);
+        modelFileTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField1KeyReleased(evt);
+                modelFileTextFieldKeyReleased(evt);
             }
         });
-        topPanel.add(jTextField1);
+        topPanel.add(modelFileTextField);
 
         jLabel4.setText("Rel. cesta k ui.xml:");
         topPanel.add(jLabel4);
 
-        jTextField2.setColumns(17);
-        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+        uiFileTextField.setColumns(17);
+        uiFileTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField2KeyReleased(evt);
+                uiFileTextFieldKeyReleased(evt);
             }
         });
-        topPanel.add(jTextField2);
+        topPanel.add(uiFileTextField);
 
         getContentPane().add(topPanel, java.awt.BorderLayout.NORTH);
 
@@ -262,7 +262,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -291,7 +291,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -339,17 +339,17 @@ public class MainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
-        MagsaConfig.getInstance().setModelFile(jTextField1.getText());
-    }//GEN-LAST:event_jTextField1KeyReleased
+    private void modelFileTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_modelFileTextFieldKeyReleased
+        MagsaConfig.getInstance().setModelFile(modelFileTextField.getText());
+    }//GEN-LAST:event_modelFileTextFieldKeyReleased
 
-    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
-        MagsaConfig.getInstance().setUiFile(jTextField2.getText());
-    }//GEN-LAST:event_jTextField2KeyReleased
+    private void uiFileTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_uiFileTextFieldKeyReleased
+        MagsaConfig.getInstance().setUiFile(uiFileTextField.getText());
+    }//GEN-LAST:event_uiFileTextFieldKeyReleased
 
-    private void jTextField3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyReleased
-        MagsaConfig.getInstance().setConstraintClass(jTextField3.getText());
-    }//GEN-LAST:event_jTextField3KeyReleased
+    private void constraintClassTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_constraintClassTextFieldKeyReleased
+        MagsaConfig.getInstance().setConstraintClass(constraintClassTextField.getText());
+    }//GEN-LAST:event_constraintClassTextFieldKeyReleased
 
     private void nacitatMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nacitatMenuActionPerformed
         openProject();
@@ -361,9 +361,9 @@ public class MainFrame extends javax.swing.JFrame {
         // novom nacitavani sa resetne aj zvysok, tzn. projectpath atd.
     }//GEN-LAST:event_zavrietMenuActionPerformed
 
-    private void jTextField4KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyReleased
-        MagsaConfig.getInstance().setModelDir(jTextField4.getText().trim());
-    }//GEN-LAST:event_jTextField4KeyReleased
+    private void modelDirTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_modelDirTextFieldKeyReleased
+        MagsaConfig.getInstance().setModelDir(modelDirTextField.getText().trim());
+    }//GEN-LAST:event_modelDirTextFieldKeyReleased
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         refreshProject();
@@ -371,6 +371,7 @@ public class MainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel centerPanel;
     private javax.swing.JTextPane consolePane;
+    private javax.swing.JTextField constraintClassTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -386,10 +387,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPane2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField modelDirTextField;
+    private javax.swing.JTextField modelFileTextField;
     private javax.swing.JTextPane modelPane;
     private javax.swing.JMenuItem nacitatMenu;
     private sk.tuke.magsa.maketool.task.Task1 task11;
@@ -402,6 +401,7 @@ public class MainFrame extends javax.swing.JFrame {
     private sk.tuke.magsa.maketool.task.Task8 task81;
     private javax.swing.JTabbedPane tasks;
     private javax.swing.JPanel topPanel;
+    private javax.swing.JTextField uiFileTextField;
     private javax.swing.JMenuItem zavrietMenu;
     // End of variables declaration//GEN-END:variables
 }
