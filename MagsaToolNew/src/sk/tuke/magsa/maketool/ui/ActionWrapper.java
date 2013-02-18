@@ -35,7 +35,7 @@ public class ActionWrapper extends MagsaAction {
                 printProvider.printModel(context.getModel());
             }
         } catch (Exception ex) {
-            printProvider.printError("Chyba" + ex.getMessage());
+            printProvider.printError("Chyba: " + ex.getMessage());
             throw ex;
         }
     }
