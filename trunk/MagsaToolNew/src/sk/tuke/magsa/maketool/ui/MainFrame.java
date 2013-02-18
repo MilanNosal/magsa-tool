@@ -59,13 +59,15 @@ public class MainFrame extends javax.swing.JFrame {
         printProvider.reset();
         File currentDirectory = new File(System.getProperty("user.dir") + "/..");
         try {
-            JFileChooser chooser = new JFileChooser();
-            chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            chooser.setCurrentDirectory(currentDirectory);
-            if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-                currentDirectory = chooser.getSelectedFile();
-            } else {
-                return;
+            if (!currentDirectory.getCanonicalPath().endsWith("magsa")) {
+                JFileChooser chooser = new JFileChooser();
+                chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                chooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+                if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+                    currentDirectory = chooser.getSelectedFile();
+                } else {
+                    return;
+                }
             }
             
             MagsaConfig.getInstance().setProjectPath(currentDirectory.getCanonicalPath());
