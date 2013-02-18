@@ -17,7 +17,6 @@ public class AbstractResourceComponent extends JPanel implements Resource {
         setOpaque(true);
 
         updateStyle();
-        updateBorder();
     }
 
     @Override
@@ -32,19 +31,10 @@ public class AbstractResourceComponent extends JPanel implements Resource {
         statePropertSupport.firePropertyChange("state", oldState, state);
         
         updateStyle();
-        updateBorder();
     }
 
-    private void updateStyle() {
+    protected void updateStyle() {
         setBackground(state.getColor());
-    }
-
-    private void updateBorder() {
-        if (state == State.UNAVAILABLE) {
-            setBorder(new DashedBorder(Color.BLACK, 1));
-        } else {
-            setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        }
     }
 
     @Override

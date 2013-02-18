@@ -41,7 +41,7 @@ public class DashedBorder extends AbstractBorder {
         g2d.setColor(lineColor);
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setStroke(stroke);
-        g2d.drawRoundRect(x + thickness / 2, y + thickness / 2, width - thickness, height - thickness, 10, 10);
+        g2d.drawRoundRect(x + thickness / 2, y + thickness / 2, width - thickness, height - thickness, 15, 15);
     }
 
     /**
