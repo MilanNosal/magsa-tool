@@ -1,5 +1,6 @@
 package sk.tuke.magsa.maketool.component;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import sk.tuke.magsa.maketool.Action;
 import sk.tuke.magsa.maketool.ExecutableResource;
@@ -26,6 +28,11 @@ public class ExecutableResourceComponent extends ResourceComponent implements Ex
 
     public ExecutableResourceComponent() {
         createButton();
+    }
+
+    @Override
+    protected void createBorder() {
+        setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 
     private void createButton() {
@@ -98,7 +105,7 @@ public class ExecutableResourceComponent extends ResourceComponent implements Ex
                 action.execute();
                 setState(State.COMPLETED);
                 if (output != null) {
-                    if(output instanceof ExecutableResource) {
+                    if (output instanceof ExecutableResource) {
                         output.setState(State.READY);
                     } else {
                         output.setState(State.COMPLETED);
