@@ -2,6 +2,9 @@ package sk.tuke.magsa.maketool.ui;
 
 import java.awt.Component;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import sk.tuke.magsa.maketool.MagsaConfig;
 import sk.tuke.magsa.maketool.PrintProvider;
@@ -46,14 +49,44 @@ public class MainFrame extends javax.swing.JFrame {
     private void openProject() {
         //File curr = new File(System.getProperty("user.dir"));
         //TODO - opravit nastavenie cesty
-        File curr = new File(System.getProperty("user.dir") + "/../magsa");
+        File curr = new File(System.getProperty("user.dir") + "/..");
         JFileChooser chooser = new JFileChooser();
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         chooser.setCurrentDirectory(curr);
         if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            curr = chooser.getSelectedFile();
-            printProvider.printInfo("Načítavam projekt z adresára " + curr);
+            try {
+                curr = chooser.getSelectedFile();
+                printProvider.printInfo("Načítavam projekt z adresára " + curr);
+                MagsaConfig.getInstance().setProjectPath(curr.getCanonicalPath());
+            }
+            catch (IOException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //        if (!curr.getAbsolutePath().endsWith("magsa")) {
+            //            JFileChooser chooser = new JFileChooser();
+            //            chooser.setLocation(50, 50);
+            //            chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            //            chooser.setDialogTitle("Vyberte adresár projektu MAGSA");
+            //
+            //            chooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+            //            chooser.showOpenDialog(this);
+            //            curr = chooser.getSelectedFile();
+            //        }
+            //
+            //        try {
+            //            magsaLogic.setMagsaPath(curr.getAbsolutePath());
+            //            magsaLogic.init();
+            //        } catch (Exception ex) {
+            //            //Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            //            getOutput().printError("Chyba pri načítavaní projektu: ").printError(ex.getMessage()).printError("Presvedčte sa, že ste vybrali správny adresár. Pre detailnejšie informácie pozrite stacktrace nižšie.");
+            //            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            //            PrintStream ps = new PrintStream(baos);
+            //            ex.printStackTrace(ps);
+            //            getOutput().printError("\nStackTrace:").printError(baos.toString());
+            //        }
+            
         }
+
 
 //        if (!curr.getAbsolutePath().endsWith("magsa")) {
 //            JFileChooser chooser = new JFileChooser();
