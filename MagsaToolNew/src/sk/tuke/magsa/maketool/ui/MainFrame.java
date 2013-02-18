@@ -56,6 +56,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void openProject() {
         //File curr = new File(System.getProperty("user.dir"));
         //TODO - opravit nastavenie cesty
+        printProvider.reset();
         File currentDirectory = new File(System.getProperty("user.dir") + "/..");
         try {
             if (!currentDirectory.getCanonicalPath().endsWith("magsa")) {
@@ -87,6 +88,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     private void refreshProject() {
+        printProvider.reset();
         try {
             printProvider.printInfo("Obnovujem projekt z adresára " + MagsaConfig.getInstance().getProjectPath());
             buildProject();
