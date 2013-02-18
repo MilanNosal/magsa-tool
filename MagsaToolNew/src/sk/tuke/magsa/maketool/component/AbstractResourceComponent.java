@@ -1,9 +1,7 @@
 package sk.tuke.magsa.maketool.component;
 
-import java.awt.Color;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import sk.tuke.magsa.maketool.Resource;
 import sk.tuke.magsa.maketool.State;
