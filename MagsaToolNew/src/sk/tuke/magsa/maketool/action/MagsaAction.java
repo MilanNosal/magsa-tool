@@ -6,6 +6,7 @@ import sk.tuke.magsa.maketool.Context;
 public abstract class MagsaAction implements Action {
     protected MagsaContext context;
 
+    @Override
     public void setContext(Context context) {
         this.context = (MagsaContext)context;
     }
