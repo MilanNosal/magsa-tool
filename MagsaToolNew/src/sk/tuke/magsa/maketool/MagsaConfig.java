@@ -1,5 +1,6 @@
 package sk.tuke.magsa.maketool;
 
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -36,10 +37,9 @@ public final class MagsaConfig {
     public String getProjectPath() {
         return projectPath;
     }
-
-    public void setProjectPath(String projectPath) {
+    
+    public void refreshClassLoader() {
         //TODO: odpamatat a nastavit class loader lebo pri reload ho budem musiet vytvorit nanovo
-        //  asi spravene
         try {
             URL url = new URL("file:/" + projectPath + "/build/classes/");
             URL[] urls = new URL[]{url};
@@ -49,7 +49,11 @@ public final class MagsaConfig {
         } catch (MalformedURLException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void setProjectPath(String projectPath) {
         this.projectPath = projectPath;
+        refreshClassLoader();
     }
 
     public String getConstraintClass() {
