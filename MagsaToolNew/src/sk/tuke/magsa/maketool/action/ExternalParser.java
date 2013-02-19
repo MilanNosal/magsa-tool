@@ -10,7 +10,7 @@ public class ExternalParser extends MagsaAction {
         Class parserextClass = MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.parserext.Parser");
         Object parserext = parserextClass.getConstructor().newInstance();
         context.setModel(parserextClass.getMethod("parse", Reader.class).
-                invoke(parserext, new FileReader(MagsaConfig.getInstance().getProjectPath() + "\\" + MagsaConfig.getInstance().getModelFile())));
+                invoke(parserext, new FileReader(MagsaConfig.getInstance().getProjectPath() + "/" + MagsaConfig.getInstance().getModelFile())));
     }
 
     @Override
