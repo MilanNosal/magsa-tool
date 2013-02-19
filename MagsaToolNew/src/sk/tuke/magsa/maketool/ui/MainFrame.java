@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.ProjectHelper;
@@ -20,6 +21,9 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
+        
+        ImageIcon img = new ImageIcon(getClass().getResource("/resources/icon.png"));
+        this.setIconImage(img.getImage());
 
         modelDirTextField.setText(MagsaConfig.getInstance().getModelDir());
         constraintClassTextField.setText(MagsaConfig.getInstance().getConstraintClass());
