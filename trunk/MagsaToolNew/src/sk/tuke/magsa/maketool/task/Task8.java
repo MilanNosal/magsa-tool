@@ -132,84 +132,85 @@ public class Task8 extends AbstractTaskPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        metamodel.setLabel("Syntax jazyka entít<br> definovaná anotovanými<br>konštuktormi modelu");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle"); // NOI18N
+        metamodel.setLabel(bundle.getString("metamodel")); // NOI18N
         add(metamodel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 130, 80));
 
-        externalParser.setActionName("Parse");
-        externalParser.setLabel("Vygenerovaný<br>jazykový procesor");
+        externalParser.setActionName(bundle.getString("parse")); // NOI18N
+        externalParser.setLabel(bundle.getString("externalParser")); // NOI18N
         add(externalParser, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 120, 60));
 
         arrow2.setBarbStyle(sk.tuke.magsa.maketool.component.Arrow.BarbStyle.FILLED);
         arrow2.setOrientation(sk.tuke.magsa.maketool.component.Arrow.Orientation.NORTHEAST);
         add(arrow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 320, 370, 60));
 
-        databaseScript.setLabel("Vygenerovaný kód:<br>databázový skript");
+        databaseScript.setLabel(bundle.getString("databaseScript")); // NOI18N
         add(databaseScript, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 30, 120, 50));
 
-        yajco.setActionName("Generate");
-        yajco.setLabel("Yajco");
+        yajco.setActionName(bundle.getString("generate")); // NOI18N
+        yajco.setLabel(bundle.getString("yajco")); // NOI18N
         add(yajco, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 100, 60));
 
-        modelFile.setLabel("Zápis v jazyku entít<br>(model.el)");
+        modelFile.setLabel(bundle.getString("modelFile")); // NOI18N
         add(modelFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 105, 55));
 
-        uiFile.setLabel("Zapis v jazyku UI<br> (ui.xml)");
+        uiFile.setLabel(bundle.getString("uiFile")); // NOI18N
         add(uiFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 100, 55));
 
-        databaseScriptGenerator.setActionName("Generate");
-        databaseScriptGenerator.setLabel("DbScriptGenerator");
+        databaseScriptGenerator.setActionName(bundle.getString("generate")); // NOI18N
+        databaseScriptGenerator.setLabel(bundle.getString("databaseScriptGenerator")); // NOI18N
         add(databaseScriptGenerator, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 30, 110, 50));
 
-        model.setLabel("Model");
+        model.setLabel(bundle.getString("model")); // NOI18N
         add(model, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 240, 70, 60));
 
-        uiProcessor.setActionName("Compose");
-        uiProcessor.setLabel("UI Processor");
+        uiProcessor.setActionName(bundle.getString("compose")); // NOI18N
+        uiProcessor.setLabel(bundle.getString("uiProcessor")); // NOI18N
         add(uiProcessor, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 280, 90, 50));
 
-        model2.setLabel("Model");
+        model2.setLabel(bundle.getString("model2")); // NOI18N
         add(model2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 280, 70, 50));
 
-        entityClassGenerator.setActionName("Generate");
-        entityClassGenerator.setLabel("Generátor tried entít");
+        entityClassGenerator.setActionName(bundle.getString("generate")); // NOI18N
+        entityClassGenerator.setLabel(bundle.getString("entityClassGenerator")); // NOI18N
         add(entityClassGenerator, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 100, 110, 50));
 
-        entityClass.setLabel("Vygenerovaný kód:<br>triedy entít");
+        entityClass.setLabel(bundle.getString("entityClass")); // NOI18N
         add(entityClass, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 100, 120, 50));
 
-        daoInterfaceGenerator.setActionName("Generate");
-        daoInterfaceGenerator.setLabel("Generátor DAO<br> rozhraní");
+        daoInterfaceGenerator.setActionName(bundle.getString("generate")); // NOI18N
+        daoInterfaceGenerator.setLabel(bundle.getString("daoInterfaceGenerator")); // NOI18N
         add(daoInterfaceGenerator, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 170, 110, 60));
 
-        daoInterface.setLabel("Vygenerovaný kód:<br>DAO rozhrania");
+        daoInterface.setLabel(bundle.getString("daoInterface")); // NOI18N
         add(daoInterface, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 170, 120, 50));
 
-        daoImplementationGenerator.setActionName("Generate");
-        daoImplementationGenerator.setLabel("Generátor DAO");
+        daoImplementationGenerator.setActionName(bundle.getString("generate")); // NOI18N
+        daoImplementationGenerator.setLabel(bundle.getString("daoImplementationGenerator")); // NOI18N
         add(daoImplementationGenerator, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 240, 110, 50));
 
-        daoImplementation.setLabel("Vygenerovaný kód:<br>DAO");
+        daoImplementation.setLabel(bundle.getString("daoImplementation")); // NOI18N
         add(daoImplementation, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 240, 120, 50));
 
-        uiFormGenerator.setActionName("Generate");
-        uiFormGenerator.setLabel("Generátor formulárov");
+        uiFormGenerator.setActionName(bundle.getString("generate")); // NOI18N
+        uiFormGenerator.setLabel(bundle.getString("uiFormGenerator")); // NOI18N
         add(uiFormGenerator, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 300, 110, 60));
 
-        uiForm.setLabel("Vygenerovaný kód:<br>UI - formuláre");
+        uiForm.setLabel(bundle.getString("uiForm")); // NOI18N
         add(uiForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 310, 120, 50));
 
-        uiTableGenerator.setActionName("Generate");
-        uiTableGenerator.setLabel("Generátor tabuliek");
+        uiTableGenerator.setActionName(bundle.getString("generate")); // NOI18N
+        uiTableGenerator.setLabel(bundle.getString("uiTableGenerator")); // NOI18N
         add(uiTableGenerator, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 380, 110, 50));
 
-        uiTable.setLabel("Vygenerovaný kód:<br>UI - tabuľky");
+        uiTable.setLabel(bundle.getString("uiTable")); // NOI18N
         add(uiTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 380, 120, 50));
 
-        applicationGenerator.setActionName("Generate");
-        applicationGenerator.setLabel("Generátor hlavnej <br>triedy");
+        applicationGenerator.setActionName(bundle.getString("generate")); // NOI18N
+        applicationGenerator.setLabel(bundle.getString("applicationGenerator")); // NOI18N
         add(applicationGenerator, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 450, 110, 60));
 
-        application.setLabel("Vygenerovaný kód:<br>hlavná trieda aplikácie");
+        application.setLabel(bundle.getString("application")); // NOI18N
         add(application, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 450, 120, 50));
 
         arrow3.setBarbStyle(sk.tuke.magsa.maketool.component.Arrow.BarbStyle.FILLED);
@@ -263,40 +264,40 @@ public class Task8 extends AbstractTaskPanel {
         add(arrow22, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 180, 40, 50));
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 153));
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Generovanie jazykového procesora");
+        jLabel4.setText(bundle.getString("parserGenerationPhase")); // NOI18N
         jLabel4.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel4.setOpaque(true);
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 310, 150));
 
         jLabel5.setBackground(new java.awt.Color(255, 255, 153));
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel5.setOpaque(true);
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, 140, 260));
 
         jLabel1.setBackground(new java.awt.Color(175, 249, 165));
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Kompozícia jazykov");
+        jLabel1.setText(bundle.getString("compositionPhase")); // NOI18N
         jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel1.setOpaque(true);
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 260, 530));
 
         jLabel2.setBackground(new java.awt.Color(204, 204, 255));
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Fáza generovania");
+        jLabel2.setText(bundle.getString("generationPhase")); // NOI18N
         jLabel2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel2.setOpaque(true);
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 0, 410, 530));
 
         jLabel3.setBackground(new java.awt.Color(241, 182, 139));
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Fáza rozpoznávania");
+        jLabel3.setText(bundle.getString("parsingPhase")); // NOI18N
         jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel3.setOpaque(true);
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 530));

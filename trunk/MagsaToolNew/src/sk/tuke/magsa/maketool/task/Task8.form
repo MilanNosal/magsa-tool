@@ -1,4 +1,4 @@
-<?xml version="1.1" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <AuxValues>
@@ -20,7 +20,9 @@
   <SubComponents>
     <Component class="sk.tuke.magsa.maketool.component.ResourceComponent" name="metamodel">
       <Properties>
-        <Property name="label" type="java.lang.String" value="Syntax jazyka ent&#xed;t&lt;br&gt; definovan&#xe1; anotovan&#xfd;mi&lt;br&gt;kon&#x161;tuktormi modelu"/>
+        <Property name="label" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="metamodel" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -30,8 +32,12 @@
     </Component>
     <Component class="sk.tuke.magsa.maketool.component.ExecutableResourceComponent" name="externalParser">
       <Properties>
-        <Property name="actionName" type="java.lang.String" value="Parse"/>
-        <Property name="label" type="java.lang.String" value="Vygenerovan&#xfd;&lt;br&gt;jazykov&#xfd; procesor"/>
+        <Property name="actionName" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="parse" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+        <Property name="label" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="externalParser" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -56,7 +62,9 @@
     </Component>
     <Component class="sk.tuke.magsa.maketool.component.ResourceComponent" name="databaseScript">
       <Properties>
-        <Property name="label" type="java.lang.String" value="Vygenerovan&#xfd; k&#xf3;d:&lt;br&gt;datab&#xe1;zov&#xfd; skript"/>
+        <Property name="label" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="databaseScript" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -66,8 +74,12 @@
     </Component>
     <Component class="sk.tuke.magsa.maketool.component.ExecutableResourceComponent" name="yajco">
       <Properties>
-        <Property name="actionName" type="java.lang.String" value="Generate"/>
-        <Property name="label" type="java.lang.String" value="Yajco"/>
+        <Property name="actionName" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="generate" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+        <Property name="label" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="yajco" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -77,7 +89,9 @@
     </Component>
     <Component class="sk.tuke.magsa.maketool.component.ResourceComponent" name="modelFile">
       <Properties>
-        <Property name="label" type="java.lang.String" value="Z&#xe1;pis v jazyku ent&#xed;t&lt;br&gt;(model.el)"/>
+        <Property name="label" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="modelFile" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -87,7 +101,9 @@
     </Component>
     <Component class="sk.tuke.magsa.maketool.component.ResourceComponent" name="uiFile">
       <Properties>
-        <Property name="label" type="java.lang.String" value="Zapis v jazyku UI&lt;br&gt; (ui.xml)"/>
+        <Property name="label" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="uiFile" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -97,8 +113,12 @@
     </Component>
     <Component class="sk.tuke.magsa.maketool.component.ExecutableResourceComponent" name="databaseScriptGenerator">
       <Properties>
-        <Property name="actionName" type="java.lang.String" value="Generate"/>
-        <Property name="label" type="java.lang.String" value="DbScriptGenerator"/>
+        <Property name="actionName" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="generate" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+        <Property name="label" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="databaseScriptGenerator" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -108,7 +128,9 @@
     </Component>
     <Component class="sk.tuke.magsa.maketool.component.ResourceComponent" name="model">
       <Properties>
-        <Property name="label" type="java.lang.String" value="Model"/>
+        <Property name="label" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="model" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -118,8 +140,12 @@
     </Component>
     <Component class="sk.tuke.magsa.maketool.component.ExecutableResourceComponent" name="uiProcessor">
       <Properties>
-        <Property name="actionName" type="java.lang.String" value="Compose"/>
-        <Property name="label" type="java.lang.String" value="UI Processor"/>
+        <Property name="actionName" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="compose" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+        <Property name="label" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="uiProcessor" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -129,7 +155,9 @@
     </Component>
     <Component class="sk.tuke.magsa.maketool.component.ResourceComponent" name="model2">
       <Properties>
-        <Property name="label" type="java.lang.String" value="Model"/>
+        <Property name="label" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="model2" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -139,8 +167,12 @@
     </Component>
     <Component class="sk.tuke.magsa.maketool.component.ExecutableResourceComponent" name="entityClassGenerator">
       <Properties>
-        <Property name="actionName" type="java.lang.String" value="Generate"/>
-        <Property name="label" type="java.lang.String" value="Gener&#xe1;tor tried ent&#xed;t"/>
+        <Property name="actionName" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="generate" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+        <Property name="label" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="entityClassGenerator" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -150,7 +182,9 @@
     </Component>
     <Component class="sk.tuke.magsa.maketool.component.ResourceComponent" name="entityClass">
       <Properties>
-        <Property name="label" type="java.lang.String" value="Vygenerovan&#xfd; k&#xf3;d:&lt;br&gt;triedy ent&#xed;t"/>
+        <Property name="label" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="entityClass" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -160,8 +194,12 @@
     </Component>
     <Component class="sk.tuke.magsa.maketool.component.ExecutableResourceComponent" name="daoInterfaceGenerator">
       <Properties>
-        <Property name="actionName" type="java.lang.String" value="Generate"/>
-        <Property name="label" type="java.lang.String" value="Gener&#xe1;tor DAO&lt;br&gt; rozhran&#xed;"/>
+        <Property name="actionName" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="generate" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+        <Property name="label" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="daoInterfaceGenerator" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -171,7 +209,9 @@
     </Component>
     <Component class="sk.tuke.magsa.maketool.component.ResourceComponent" name="daoInterface">
       <Properties>
-        <Property name="label" type="java.lang.String" value="Vygenerovan&#xfd; k&#xf3;d:&lt;br&gt;DAO rozhrania"/>
+        <Property name="label" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="daoInterface" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -181,8 +221,12 @@
     </Component>
     <Component class="sk.tuke.magsa.maketool.component.ExecutableResourceComponent" name="daoImplementationGenerator">
       <Properties>
-        <Property name="actionName" type="java.lang.String" value="Generate"/>
-        <Property name="label" type="java.lang.String" value="Gener&#xe1;tor DAO"/>
+        <Property name="actionName" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="generate" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+        <Property name="label" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="daoImplementationGenerator" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -192,7 +236,9 @@
     </Component>
     <Component class="sk.tuke.magsa.maketool.component.ResourceComponent" name="daoImplementation">
       <Properties>
-        <Property name="label" type="java.lang.String" value="Vygenerovan&#xfd; k&#xf3;d:&lt;br&gt;DAO"/>
+        <Property name="label" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="daoImplementation" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -202,8 +248,12 @@
     </Component>
     <Component class="sk.tuke.magsa.maketool.component.ExecutableResourceComponent" name="uiFormGenerator">
       <Properties>
-        <Property name="actionName" type="java.lang.String" value="Generate"/>
-        <Property name="label" type="java.lang.String" value="Gener&#xe1;tor formul&#xe1;rov"/>
+        <Property name="actionName" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="generate" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+        <Property name="label" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="uiFormGenerator" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -213,7 +263,9 @@
     </Component>
     <Component class="sk.tuke.magsa.maketool.component.ResourceComponent" name="uiForm">
       <Properties>
-        <Property name="label" type="java.lang.String" value="Vygenerovan&#xfd; k&#xf3;d:&lt;br&gt;UI - formul&#xe1;re"/>
+        <Property name="label" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="uiForm" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -223,8 +275,12 @@
     </Component>
     <Component class="sk.tuke.magsa.maketool.component.ExecutableResourceComponent" name="uiTableGenerator">
       <Properties>
-        <Property name="actionName" type="java.lang.String" value="Generate"/>
-        <Property name="label" type="java.lang.String" value="Gener&#xe1;tor tabuliek"/>
+        <Property name="actionName" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="generate" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+        <Property name="label" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="uiTableGenerator" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -234,7 +290,9 @@
     </Component>
     <Component class="sk.tuke.magsa.maketool.component.ResourceComponent" name="uiTable">
       <Properties>
-        <Property name="label" type="java.lang.String" value="Vygenerovan&#xfd; k&#xf3;d:&lt;br&gt;UI - tabu&#x13e;ky"/>
+        <Property name="label" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="uiTable" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -244,8 +302,12 @@
     </Component>
     <Component class="sk.tuke.magsa.maketool.component.ExecutableResourceComponent" name="applicationGenerator">
       <Properties>
-        <Property name="actionName" type="java.lang.String" value="Generate"/>
-        <Property name="label" type="java.lang.String" value="Gener&#xe1;tor hlavnej &lt;br&gt;triedy"/>
+        <Property name="actionName" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="generate" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+        <Property name="label" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="applicationGenerator" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -255,7 +317,9 @@
     </Component>
     <Component class="sk.tuke.magsa.maketool.component.ResourceComponent" name="application">
       <Properties>
-        <Property name="label" type="java.lang.String" value="Vygenerovan&#xfd; k&#xf3;d:&lt;br&gt;hlavn&#xe1; trieda aplik&#xe1;cie"/>
+        <Property name="label" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="application" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -491,7 +555,9 @@
           <Font name="Tahoma" size="14" style="0"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Generovanie jazykov&#xe9;ho procesora"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="parserGenerationPhase" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
         <Property name="verticalAlignment" type="int" value="1"/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
@@ -528,7 +594,9 @@
           <Font name="Tahoma" size="18" style="0"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Kompoz&#xed;cia jazykov"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="compositionPhase" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
         <Property name="verticalAlignment" type="int" value="1"/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
@@ -547,7 +615,9 @@
           <Font name="Tahoma" size="18" style="0"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="F&#xe1;za generovania"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="generationPhase" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
         <Property name="verticalAlignment" type="int" value="1"/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
@@ -566,7 +636,9 @@
           <Font name="Tahoma" size="18" style="0"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="F&#xe1;za rozpozn&#xe1;vania"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="sk/tuke/magsa/maketool/Bundle.properties" key="parsingPhase" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
         <Property name="verticalAlignment" type="int" value="1"/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>

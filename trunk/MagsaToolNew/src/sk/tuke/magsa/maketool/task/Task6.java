@@ -93,49 +93,50 @@ public class Task6 extends AbstractTaskPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        metamodel.setLabel("Syntax jazyka entít<br> definovaná anotovanými<br>konštuktormi modelu");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle"); // NOI18N
+        metamodel.setLabel(bundle.getString("metamodel")); // NOI18N
         add(metamodel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 130, 80));
 
-        externalParser.setActionName("Parse");
-        externalParser.setLabel("Vygenerovaný<br>jazykový procesor");
+        externalParser.setActionName(bundle.getString("parse")); // NOI18N
+        externalParser.setLabel(bundle.getString("externalParser")); // NOI18N
         add(externalParser, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 260, 120, 60));
 
-        databaseScript.setLabel("Vygenerovaný kód:<br>databázový skript");
+        databaseScript.setLabel(bundle.getString("databaseScript")); // NOI18N
         add(databaseScript, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 160, 120, 50));
 
-        yajco.setActionName("Generate");
-        yajco.setLabel("Yajco");
+        yajco.setActionName(bundle.getString("generate")); // NOI18N
+        yajco.setLabel(bundle.getString("yajco")); // NOI18N
         add(yajco, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 130, 100, 60));
 
-        modelFile.setLabel("Zápis v jazyku entít<br>(model.el)");
+        modelFile.setLabel(bundle.getString("modelFile")); // NOI18N
         add(modelFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, 105, 55));
 
-        databaseScriptGenerator.setActionName("Generate");
-        databaseScriptGenerator.setLabel("DbScriptGenerator");
+        databaseScriptGenerator.setActionName(bundle.getString("generate")); // NOI18N
+        databaseScriptGenerator.setLabel(bundle.getString("databaseScriptGenerator")); // NOI18N
         add(databaseScriptGenerator, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 160, 110, 50));
 
-        model.setLabel("Model");
+        model.setLabel(bundle.getString("model")); // NOI18N
         add(model, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 260, 70, 60));
 
-        entityClassGenerator.setActionName("Generate");
-        entityClassGenerator.setLabel("Generátor tried entít");
+        entityClassGenerator.setActionName(bundle.getString("generate")); // NOI18N
+        entityClassGenerator.setLabel(bundle.getString("entityClassGenerator")); // NOI18N
         add(entityClassGenerator, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 230, 110, 50));
 
-        entityClass.setLabel("Vygenerovaný kód:<br>triedy entít");
+        entityClass.setLabel(bundle.getString("entityClass")); // NOI18N
         add(entityClass, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 230, 120, 50));
 
-        daoInterfaceGenerator.setActionName("Generate");
-        daoInterfaceGenerator.setLabel("Generátor DAO<br> rozhraní");
+        daoInterfaceGenerator.setActionName(bundle.getString("generate")); // NOI18N
+        daoInterfaceGenerator.setLabel(bundle.getString("daoInterfaceGenerator")); // NOI18N
         add(daoInterfaceGenerator, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 300, 110, 60));
 
-        daoInterface.setLabel("Vygenerovaný kód:<br>DAO rozhrania");
+        daoInterface.setLabel(bundle.getString("daoInterface")); // NOI18N
         add(daoInterface, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 300, 120, 50));
 
-        daoImplementationGenerator.setActionName("Generate");
-        daoImplementationGenerator.setLabel("Generátor DAO");
+        daoImplementationGenerator.setActionName(bundle.getString("generate")); // NOI18N
+        daoImplementationGenerator.setLabel(bundle.getString("daoImplementationGenerator")); // NOI18N
         add(daoImplementationGenerator, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 370, 110, 50));
 
-        daoImplementation.setLabel("Vygenerovaný kód:<br>DAO");
+        daoImplementation.setLabel(bundle.getString("daoImplementation")); // NOI18N
         add(daoImplementation, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 370, 120, 50));
 
         arrow3.setBarbStyle(sk.tuke.magsa.maketool.component.Arrow.BarbStyle.FILLED);
@@ -169,32 +170,32 @@ public class Task6 extends AbstractTaskPanel {
         add(arrow22, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 200, 40, 50));
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 153));
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Generovanie jazykového procesora");
+        jLabel4.setText(bundle.getString("parserGenerationPhase")); // NOI18N
         jLabel4.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel4.setOpaque(true);
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, 310, 150));
 
         jLabel5.setBackground(new java.awt.Color(255, 255, 153));
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel5.setOpaque(true);
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, 140, 260));
 
         jLabel2.setBackground(new java.awt.Color(204, 204, 255));
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Fáza generovania");
+        jLabel2.setText(bundle.getString("generationPhase")); // NOI18N
         jLabel2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel2.setOpaque(true);
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 0, 520, 530));
 
         jLabel3.setBackground(new java.awt.Color(241, 182, 139));
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Fáza rozpoznávania");
+        jLabel3.setText(bundle.getString("parsingPhase")); // NOI18N
         jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel3.setOpaque(true);
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 530));
