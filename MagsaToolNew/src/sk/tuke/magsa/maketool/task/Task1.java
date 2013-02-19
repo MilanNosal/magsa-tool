@@ -44,14 +44,15 @@ public class Task1 extends AbstractTaskPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        modelDir.setLabel("Zápis v jazyku entít<br>(adresár model)");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle"); // NOI18N
+        modelDir.setLabel(bundle.getString("modelDir")); // NOI18N
         add(modelDir, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, 105, 55));
 
-        model.setLabel("Model");
+        model.setLabel(bundle.getString("model")); // NOI18N
         add(model, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 220, 70, 60));
 
-        lineParser.setActionName("Parse");
-        lineParser.setLabel("LineParser");
+        lineParser.setActionName(bundle.getString("parse")); // NOI18N
+        lineParser.setLabel(bundle.getString("lineParser")); // NOI18N
         add(lineParser, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 220, 100, 60));
         add(arrow14, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 240, 50, 20));
 
@@ -59,9 +60,9 @@ public class Task1 extends AbstractTaskPanel {
         add(arrow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 240, 50, 20));
 
         jLabel3.setBackground(new java.awt.Color(241, 182, 139));
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Fáza rozpoznávania");
+        jLabel3.setText(bundle.getString("parsingPhase")); // NOI18N
         jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel3.setOpaque(true);
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1070, 530));

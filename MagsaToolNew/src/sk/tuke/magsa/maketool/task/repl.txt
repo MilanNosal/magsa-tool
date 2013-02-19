@@ -41,7 +41,6 @@ metamodel
 
 constraintBuilder
 
-constraintBuilder
 
 
 databaseScriptGenerator
@@ -59,3 +58,12 @@ daoImplementation
 uiForm
 uiTable
 application
+
+parse
+generate
+compose
+
+parserGenerationPhase
+parsingPhase
+compositionPhase
+generationPhase
