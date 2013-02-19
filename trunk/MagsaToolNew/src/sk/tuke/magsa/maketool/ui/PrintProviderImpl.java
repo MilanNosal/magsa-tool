@@ -44,7 +44,7 @@ public class PrintProviderImpl implements PrintProvider {
 
         std = consolePane.getStyledDocument().addStyle("Std", null);
         StyleConstants.setFontFamily(std, "mono");
-        StyleConstants.setForeground(std, new Color(160, 160, 160));
+        StyleConstants.setForeground(std, new Color(60, 60, 60));
 
         code = consolePane.getStyledDocument().addStyle("Code", null);
         StyleConstants.setFontFamily(code, "mono");

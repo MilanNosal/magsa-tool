@@ -156,14 +156,14 @@ public class MainFrame extends javax.swing.JFrame {
         centerPanel = new javax.swing.JPanel();
         jSplitPane2 = new javax.swing.JSplitPane();
         tasks = new javax.swing.JTabbedPane();
-        task11 = new sk.tuke.magsa.maketool.task.Task1();
-        task21 = new sk.tuke.magsa.maketool.task.Task2();
-        task31 = new sk.tuke.magsa.maketool.task.Task3();
-        task41 = new sk.tuke.magsa.maketool.task.Task4();
-        task51 = new sk.tuke.magsa.maketool.task.Task5();
-        task61 = new sk.tuke.magsa.maketool.task.Task6();
-        task71 = new sk.tuke.magsa.maketool.task.Task7();
-        task81 = new sk.tuke.magsa.maketool.task.Task8();
+        task1 = new sk.tuke.magsa.maketool.task.Task1();
+        task2 = new sk.tuke.magsa.maketool.task.Task2();
+        task3 = new sk.tuke.magsa.maketool.task.Task3();
+        task4 = new sk.tuke.magsa.maketool.task.Task4();
+        task5 = new sk.tuke.magsa.maketool.task.Task5();
+        task6 = new sk.tuke.magsa.maketool.task.Task6();
+        task7 = new sk.tuke.magsa.maketool.task.Task7();
+        task8 = new sk.tuke.magsa.maketool.task.Task8();
         jSplitPane1 = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -234,14 +234,19 @@ public class MainFrame extends javax.swing.JFrame {
 
         jSplitPane2.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
-        tasks.addTab("Cvičenie 2 (úloha 1)", task11);
-        tasks.addTab("Cvičenie 3 (úloha 2)", task21);
-        tasks.addTab("Cvičenie 5 (úloha 3)", task31);
-        tasks.addTab("Cvičenie 6 (úloha 4)", task41);
-        tasks.addTab("Cvičenie 8 (úloha 5)", task51);
-        tasks.addTab("Cvičenie 9 (úloha 6)", task61);
-        tasks.addTab("Cvičenie 11 (úloha 7)", task71);
-        tasks.addTab("Cvičenie 12 (úloha 8)", task81);
+        tasks.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tasksStateChanged(evt);
+            }
+        });
+        tasks.addTab("Cvičenie 2 (úloha 1)", task1);
+        tasks.addTab("Cvičenie 3 (úloha 2)", task2);
+        tasks.addTab("Cvičenie 5 (úloha 3)", task3);
+        tasks.addTab("Cvičenie 6 (úloha 4)", task4);
+        tasks.addTab("Cvičenie 8 (úloha 5)", task5);
+        tasks.addTab("Cvičenie 9 (úloha 6)", task6);
+        tasks.addTab("Cvičenie 11 (úloha 7)", task7);
+        tasks.addTab("Cvičenie 12 (úloha 8)", task8);
 
         jSplitPane2.setLeftComponent(tasks);
 
@@ -270,7 +275,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -299,7 +304,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -376,6 +381,14 @@ public class MainFrame extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         refreshProject();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void tasksStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tasksStateChanged
+        modelDirTextField.setEditable(tasks.getSelectedIndex() < 4);
+        constraintClassTextField.setEditable(tasks.getSelectedIndex() > 1 && tasks.getSelectedIndex() < 4);
+        modelFileTextField.setEditable(tasks.getSelectedIndex() > 3);
+        uiFileTextField.setEditable(tasks.getSelectedIndex() > 5);
+    }//GEN-LAST:event_tasksStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel centerPanel;
     private javax.swing.JTextPane consolePane;
@@ -399,14 +412,14 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField modelFileTextField;
     private javax.swing.JTextPane modelPane;
     private javax.swing.JMenuItem nacitatMenu;
-    private sk.tuke.magsa.maketool.task.Task1 task11;
-    private sk.tuke.magsa.maketool.task.Task2 task21;
-    private sk.tuke.magsa.maketool.task.Task3 task31;
-    private sk.tuke.magsa.maketool.task.Task4 task41;
-    private sk.tuke.magsa.maketool.task.Task5 task51;
-    private sk.tuke.magsa.maketool.task.Task6 task61;
-    private sk.tuke.magsa.maketool.task.Task7 task71;
-    private sk.tuke.magsa.maketool.task.Task8 task81;
+    private sk.tuke.magsa.maketool.task.Task1 task1;
+    private sk.tuke.magsa.maketool.task.Task2 task2;
+    private sk.tuke.magsa.maketool.task.Task3 task3;
+    private sk.tuke.magsa.maketool.task.Task4 task4;
+    private sk.tuke.magsa.maketool.task.Task5 task5;
+    private sk.tuke.magsa.maketool.task.Task6 task6;
+    private sk.tuke.magsa.maketool.task.Task7 task7;
+    private sk.tuke.magsa.maketool.task.Task8 task8;
     private javax.swing.JTabbedPane tasks;
     private javax.swing.JPanel topPanel;
     private javax.swing.JTextField uiFileTextField;

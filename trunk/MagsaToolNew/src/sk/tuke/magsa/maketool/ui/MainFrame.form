@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
@@ -157,6 +157,9 @@
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
           <SubComponents>
             <Container class="javax.swing.JTabbedPane" name="tasks">
+              <Events>
+                <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="tasksStateChanged"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
                   <JSplitPaneConstraints position="left"/>
@@ -165,7 +168,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
               <SubComponents>
-                <Component class="sk.tuke.magsa.maketool.task.Task1" name="task11">
+                <Component class="sk.tuke.magsa.maketool.task.Task1" name="task1">
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                       <JTabbedPaneConstraints tabName="Cvi&#x10d;enie 2 (&#xfa;loha 1)">
@@ -174,7 +177,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="sk.tuke.magsa.maketool.task.Task2" name="task21">
+                <Component class="sk.tuke.magsa.maketool.task.Task2" name="task2">
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                       <JTabbedPaneConstraints tabName="Cvi&#x10d;enie 3 (&#xfa;loha 2)">
@@ -183,7 +186,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="sk.tuke.magsa.maketool.task.Task3" name="task31">
+                <Component class="sk.tuke.magsa.maketool.task.Task3" name="task3">
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                       <JTabbedPaneConstraints tabName="Cvi&#x10d;enie 5 (&#xfa;loha 3)">
@@ -192,7 +195,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="sk.tuke.magsa.maketool.task.Task4" name="task41">
+                <Component class="sk.tuke.magsa.maketool.task.Task4" name="task4">
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                       <JTabbedPaneConstraints tabName="Cvi&#x10d;enie 6 (&#xfa;loha 4)">
@@ -201,7 +204,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="sk.tuke.magsa.maketool.task.Task5" name="task51">
+                <Component class="sk.tuke.magsa.maketool.task.Task5" name="task5">
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                       <JTabbedPaneConstraints tabName="Cvi&#x10d;enie 8 (&#xfa;loha 5)">
@@ -210,7 +213,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="sk.tuke.magsa.maketool.task.Task6" name="task61">
+                <Component class="sk.tuke.magsa.maketool.task.Task6" name="task6">
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                       <JTabbedPaneConstraints tabName="Cvi&#x10d;enie 9 (&#xfa;loha 6)">
@@ -219,7 +222,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="sk.tuke.magsa.maketool.task.Task7" name="task71">
+                <Component class="sk.tuke.magsa.maketool.task.Task7" name="task7">
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                       <JTabbedPaneConstraints tabName="Cvi&#x10d;enie 11 (&#xfa;loha 7)">
@@ -228,7 +231,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="sk.tuke.magsa.maketool.task.Task8" name="task81">
+                <Component class="sk.tuke.magsa.maketool.task.Task8" name="task8">
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                       <JTabbedPaneConstraints tabName="Cvi&#x10d;enie 12 (&#xfa;loha 8)">
@@ -280,7 +283,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane2" pref="60" max="32767" attributes="0"/>
+                              <Component id="jScrollPane2" pref="57" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -334,7 +337,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane1" pref="60" max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" pref="57" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
