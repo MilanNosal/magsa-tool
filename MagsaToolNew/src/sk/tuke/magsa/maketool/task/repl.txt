@@ -63,7 +63,7 @@ parse
 generate
 compose
 
-parserGenerationPhase
+parserGenerationPhase	
 parsingPhase
 compositionPhase
 generationPhase
