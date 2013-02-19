@@ -11,7 +11,7 @@ public class UIProcessor extends MagsaAction {
         Class uiProcessorClass = MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.parserxml.UIProcessor");
 
         // Docasne menim user.dir
-        File uidefi = new File(MagsaConfig.getInstance().getProjectPath() + "\\" + MagsaConfig.getInstance().getUiFile());
+        File uidefi = new File(MagsaConfig.getInstance().getProjectPath() + "/" + MagsaConfig.getInstance().getUiFile());
         String tempSP = System.getProperty("user.dir");
         System.setProperty("user.dir", uidefi.getParentFile().getAbsolutePath());
 
