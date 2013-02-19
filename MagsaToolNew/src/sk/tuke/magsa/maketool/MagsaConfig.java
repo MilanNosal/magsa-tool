@@ -40,7 +40,8 @@ public final class MagsaConfig {
     public void refreshClassLoader() {
         //TODO: odpamatat a nastavit class loader lebo pri reload ho budem musiet vytvorit nanovo
         try {
-            URL url = new URL("file:/" + projectPath + "/build/classes/");
+            System.out.println(">>>> " + projectPath);
+            URL url = new URL("file://" + projectPath + "/build/classes/");
             URL[] urls = new URL[]{url};
             
             ClassLoader loader = new URLClassLoader(urls, currentThreadClassLoader);
