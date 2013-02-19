@@ -159,6 +159,8 @@ public class PrintProviderImpl implements PrintProvider {
                         }
                     } catch (NoSuchMethodException ex) {
                         //Ked nie je metoda nic sa nevypise
+                    } catch (ClassNotFoundException ex) {
+                        //Ked nie je metoda nic sa nevypise
                     }
                     printTextToModel("\n   }", blackMono);
                 }
