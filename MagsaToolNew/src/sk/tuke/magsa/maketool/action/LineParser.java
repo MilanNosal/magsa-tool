@@ -9,7 +9,7 @@ public class LineParser extends MagsaAction {
         Class lineParserClass = Thread.currentThread().getContextClassLoader().loadClass("sk.tuke.magsa.tools.parser.LineParser");
         Object lineParser = lineParserClass.getConstructor().newInstance();
         context.setModel(lineParserClass.getMethod("parseDir", File.class).
-                invoke(lineParser, new File(MagsaConfig.getInstance().getProjectPath() + "\\" + MagsaConfig.getInstance().getModelDir() + "\\")));
+                invoke(lineParser, new File(MagsaConfig.getInstance().getProjectPath() + "/" + MagsaConfig.getInstance().getModelDir() + "/")));
     }
     
     @Override
