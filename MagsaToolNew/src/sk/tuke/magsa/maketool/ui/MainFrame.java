@@ -252,6 +252,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jSplitPane1.setDividerLocation(500);
 
+        consolePane.setEditable(false);
         jScrollPane2.setViewportView(consolePane);
 
         jLabel1.setText("Konzola");
@@ -281,6 +282,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jSplitPane1.setRightComponent(jPanel1);
 
+        modelPane.setEditable(false);
         jScrollPane1.setViewportView(modelPane);
 
         jLabel2.setText("Aktuálna reprezentácia modelu");
