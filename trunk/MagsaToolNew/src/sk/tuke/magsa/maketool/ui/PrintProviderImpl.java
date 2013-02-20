@@ -153,7 +153,7 @@ public class PrintProviderImpl implements PrintProvider {
                                 Object to = entityClass.getMethod("getName").invoke(methodTo.invoke(reference));
                                 printTextToModel("\n   referencia z ", blackMono);
                                 printTextToModel(from.toString(), entitiesStyle);
-                                printTextToModel(" do ", blackMono);
+                                printTextToModel(" na ", blackMono);
                                 printTextToModel(to.toString(), entitiesStyle);
                             }
                         }
