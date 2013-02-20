@@ -353,15 +353,15 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void modelFileTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_modelFileTextFieldKeyReleased
-        MagsaConfig.getInstance().setModelFile(modelFileTextField.getText());
+        MagsaConfig.getInstance().setModelFile(modelFileTextField.getText().trim());
     }//GEN-LAST:event_modelFileTextFieldKeyReleased
 
     private void uiFileTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_uiFileTextFieldKeyReleased
-        MagsaConfig.getInstance().setUiFile(uiFileTextField.getText());
+        MagsaConfig.getInstance().setUiFile(uiFileTextField.getText().trim());
     }//GEN-LAST:event_uiFileTextFieldKeyReleased
 
     private void constraintClassTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_constraintClassTextFieldKeyReleased
-        MagsaConfig.getInstance().setConstraintClass(constraintClassTextField.getText());
+        MagsaConfig.getInstance().setConstraintClass(constraintClassTextField.getText().trim());
     }//GEN-LAST:event_constraintClassTextFieldKeyReleased
 
     private void nacitatMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nacitatMenuActionPerformed
