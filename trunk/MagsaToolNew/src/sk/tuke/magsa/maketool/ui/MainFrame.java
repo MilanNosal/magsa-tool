@@ -6,14 +6,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import org.apache.tools.ant.Project;
-import org.apache.tools.ant.ProjectHelper;
-import sk.tuke.magsa.maketool.MagsaConfig;
+import sk.tuke.magsa.maketool.core.MagsaConfig;
 import sk.tuke.magsa.maketool.PrintProvider;
+import sk.tuke.magsa.maketool.core.Project;
 import sk.tuke.magsa.maketool.task.AbstractTaskPanel;
 
 public class MainFrame extends javax.swing.JFrame {
-
+    private final Project project = new Project();
+    
     private final PrintProvider printProvider;
 
     /**
@@ -76,14 +76,10 @@ public class MainFrame extends javax.swing.JFrame {
                 }
             }
             
-            MagsaConfig.getInstance().setProjectPath(currentDirectory.getCanonicalPath());
-            printProvider.printInfo("Načítavam projekt z adresára " + MagsaConfig.getInstance().getProjectPath());
+            String path = currentDirectory.getCanonicalPath();
 
-            buildProject();
-
-            // maly test pre istotu -- ale tn by sa mohol vyhodit
-            MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.metamodel.Model");
-            ClassLoader.getSystemClassLoader().getResourceAsStream("generator.properties");
+            printProvider.printInfo("Načítavam projekt z adresára " + path);
+            project.openProject(path);
 
             reset();
             init();
@@ -98,18 +94,14 @@ public class MainFrame extends javax.swing.JFrame {
     private void refreshProject() {
         printProvider.reset();
         try {
-            printProvider.printInfo("Obnovujem projekt z adresára " + MagsaConfig.getInstance().getProjectPath());
-            buildProject();
-
             // Aj toto predpokladam ze treba -- da sa nahradit volanim setprojectpath s povodnou hodnotou
             // resp. da sa to dat do buildu, ale potom to bude zbytocne dvakrat volane
             // pri otvarani noveho projektu, pretoze pred zacatim buildu uz musi
             // byt projectpath nastaveny
-            MagsaConfig.getInstance().refreshClassLoader();
-
-            // maly test pre istotu -- ale tn by sa mohol vyhodit
-            MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.metamodel.Model");
-            ClassLoader.getSystemClassLoader().getResourceAsStream("generator.properties");
+            String path = MagsaConfig.getInstance().getProjectPath();
+            printProvider.printInfo("Obnovujem projekt z adresára " + path);
+            
+            project.openProject(path);
 
             reset();
             init();
@@ -119,20 +111,6 @@ public class MainFrame extends javax.swing.JFrame {
             printProvider.printError("Chyba: " + ex.getMessage());
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, "Error refreshing project", ex);
         }
-    }
-
-    private void buildProject() throws Exception {
-        File buildFile = new File(
-                MagsaConfig.getInstance().getProjectPath() + "\\nbproject\\build-impl.xml");
-        Project project = new Project();
-        project.setUserProperty("ant.file", buildFile.getAbsolutePath());
-        project.init();
-
-        ProjectHelper helper = ProjectHelper.getProjectHelper();
-        helper.parse(project, buildFile);
-
-        project.executeTarget("clean");
-        project.executeTarget("compile");
     }
 
     /**
@@ -318,7 +296,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         getContentPane().add(centerPanel, java.awt.BorderLayout.CENTER);
 
-        jMenu1.setText("Projekt MaGSA");
+        jMenu1.setText("Projekt");
 
         nacitatMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
         nacitatMenu.setText("Načítať projekt");
@@ -339,7 +317,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu1.add(jMenuItem1);
 
         zavrietMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
-        zavrietMenu.setText("Zavrieť projekt");
+        zavrietMenu.setText("Ukončíť");
         zavrietMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 zavrietMenuActionPerformed(evt);
@@ -371,9 +349,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_nacitatMenuActionPerformed
 
     private void zavrietMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zavrietMenuActionPerformed
-        reset();
-        // tu by malo toto stacit, znemozni to pracovat s polozkami a pri
-        // novom nacitavani sa resetne aj zvysok, tzn. projectpath atd.
+        System.exit(0);
     }//GEN-LAST:event_zavrietMenuActionPerformed
 
     private void modelDirTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_modelDirTextFieldKeyReleased

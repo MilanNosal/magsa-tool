@@ -1,9 +1,10 @@
-package sk.tuke.magsa.maketool.action;
+package sk.tuke.magsa.maketool.action.processor;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.Reader;
-import sk.tuke.magsa.maketool.MagsaConfig;
+import sk.tuke.magsa.maketool.core.MagsaConfig;
+import sk.tuke.magsa.maketool.action.MagsaAction;
 
 public class UIProcessor extends MagsaAction {
     @Override
@@ -27,8 +28,8 @@ public class UIProcessor extends MagsaAction {
     public String describe() {
         StringBuilder sb = new StringBuilder();
         
-        sb.append("UIProcessor uiProcessor = new UIProcessor(new FileReader(\"").append(MagsaConfig.getInstance().getUiFile()).append("\"))");
-        sb.append("uiProcessor.compose(model);");
+        sb.append("UIProcessor uiProcessor = new UIProcessor(new FileReader(\"").append(MagsaConfig.getInstance().getUiFile()).append("\"))\n");
+        sb.append("uiProcessor.compose(model);\n");
         
         return sb.toString();
     }

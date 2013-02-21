@@ -2,13 +2,13 @@ package sk.tuke.magsa.maketool.task;
 
 import sk.tuke.magsa.maketool.PrintProvider;
 import sk.tuke.magsa.maketool.State;
-import sk.tuke.magsa.maketool.action.DaoImplementationGenerator;
-import sk.tuke.magsa.maketool.action.DaoInterfaceGenerator;
-import sk.tuke.magsa.maketool.action.DatabaseScriptGenerator;
-import sk.tuke.magsa.maketool.action.EntityClassGenerator;
-import sk.tuke.magsa.maketool.action.ExternalParser;
+import sk.tuke.magsa.maketool.action.generator.DaoImplementationGenerator;
+import sk.tuke.magsa.maketool.action.generator.DaoInterfaceGenerator;
+import sk.tuke.magsa.maketool.action.generator.DatabaseScriptGenerator;
+import sk.tuke.magsa.maketool.action.generator.EntityClassGenerator;
+import sk.tuke.magsa.maketool.action.processor.ExternalParser;
 import sk.tuke.magsa.maketool.action.MagsaContext;
-import sk.tuke.magsa.maketool.action.Yajco;
+import sk.tuke.magsa.maketool.action.processor.Yajco;
 import sk.tuke.magsa.maketool.ui.ActionWrapper;
 
 public class Task6 extends AbstractTaskPanel {

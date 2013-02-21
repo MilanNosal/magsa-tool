@@ -1,8 +1,9 @@
-package sk.tuke.magsa.maketool.action;
+package sk.tuke.magsa.maketool.action.generator;
 
-import sk.tuke.magsa.maketool.MagsaConfig;
+import sk.tuke.magsa.maketool.core.MagsaConfig;
+import sk.tuke.magsa.maketool.action.MagsaAction;
 
-public class UIFormGenerator extends MagsaAction {
+public class UITableGenerator extends MagsaAction {
     @Override
     public void execute() throws Exception {
         Class modelClass = MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.metamodel.Model");
@@ -10,10 +11,10 @@ public class UIFormGenerator extends MagsaAction {
         Class collectionGeneratorClass = MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.generator.CollectionTemplateGenerator");        
         Object uiModel = modelClass.getMethod("getUi").invoke(context.getModel());
 
-        Object forms[] = (Object[]) uiClass.getMethod("getForms").invoke(uiModel);
+        Object tables[] = (Object[]) uiClass.getMethod("getTables").invoke(uiModel);
         Object collectionTemplateGenerator =
                 collectionGeneratorClass.getConstructor(MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.metamodel.Model"), String.class, MagsaConfig.getInstance().loadClass("[Lsk.tuke.magsa.tools.metamodel.Named;")).
-                newInstance(context.getModel(), "ui_form", forms);
+                newInstance(context.getModel(), "ui_table", tables);
         collectionGeneratorClass.getMethod("generate").invoke(collectionTemplateGenerator);    
     }
 
@@ -21,7 +22,7 @@ public class UIFormGenerator extends MagsaAction {
     public String describe() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("new CollectionTemplateGenerator<Entity>(model, \"ui_form\", model.getUi().getForms()).generate();");
+        sb.append("new CollectionTemplateGenerator<Entity>(model, \"ui_table\", model.getUi().getTables()).generate();\n");
 
         return sb.toString();
     }

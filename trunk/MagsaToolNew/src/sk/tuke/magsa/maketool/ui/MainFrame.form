@@ -6,7 +6,7 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jMenu1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Projekt MaGSA"/>
+            <Property name="text" type="java.lang.String" value="Projekt"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="nacitatMenu">
@@ -36,7 +36,7 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+X"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Zavrie&#x165; projekt"/>
+                <Property name="text" type="java.lang.String" value="Ukon&#x10d;&#xed;&#x165;"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="zavrietMenuActionPerformed"/>
