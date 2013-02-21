@@ -1,4 +1,4 @@
-package sk.tuke.magsa.maketool;
+package sk.tuke.magsa.maketool.core;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -8,8 +8,8 @@ import java.util.logging.Logger;
 
 public final class MagsaConfig {
     private static final MagsaConfig instance = new MagsaConfig();
-    
-    private final ClassLoader currentThreadClassLoader = Thread.currentThread().getContextClassLoader();
+
+    private final ClassLoader originalClassLoader = Thread.currentThread().getContextClassLoader();
 
     private String projectPath = "";
 
@@ -36,17 +36,14 @@ public final class MagsaConfig {
     public String getProjectPath() {
         return projectPath;
     }
-    
+
     public void refreshClassLoader() {
-        //TODO: odpamatat a nastavit class loader lebo pri reload ho budem musiet vytvorit nanovo
         try {
-            URL url = new URL("file:///" + projectPath + "/build/classes/");
-            URL[] urls = new URL[]{url};
-            
-            ClassLoader loader = new URLClassLoader(urls, currentThreadClassLoader);
+            URL[] urls = new URL[]{new URL("file:///" + projectPath + "/build/classes/")};
+            ClassLoader loader = new URLClassLoader(urls, originalClassLoader);
             Thread.currentThread().setContextClassLoader(loader);
         } catch (MalformedURLException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MagsaConfig.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

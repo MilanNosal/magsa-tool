@@ -1,8 +1,9 @@
-package sk.tuke.magsa.maketool.action;
+package sk.tuke.magsa.maketool.action.processor;
 
 import java.io.FileReader;
 import java.io.Reader;
-import sk.tuke.magsa.maketool.MagsaConfig;
+import sk.tuke.magsa.maketool.core.MagsaConfig;
+import sk.tuke.magsa.maketool.action.MagsaAction;
 
 public class ExternalParser extends MagsaAction {
     @Override
@@ -17,8 +18,8 @@ public class ExternalParser extends MagsaAction {
     public String describe() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Parser parserext = new Parser();");
-        sb.append("model = parserext.parse(new FileReader(\"").append(MagsaConfig.getInstance().getModelFile()).append("\"));");
+        sb.append("Parser parserext = new Parser();\n");
+        sb.append("model = parserext.parse(new FileReader(\"").append(MagsaConfig.getInstance().getModelFile()).append("\"));\n");
 
         return sb.toString();
     }

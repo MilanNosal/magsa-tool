@@ -14,81 +14,67 @@ import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
-import sk.tuke.magsa.maketool.MagsaConfig;
+import sk.tuke.magsa.maketool.core.MagsaConfig;
 import sk.tuke.magsa.maketool.PrintProvider;
 
 public class PrintProviderImpl implements PrintProvider {
-
     private final JTextPane modelPane;
+
     private final JTextPane consolePane;
-    private Style info;
-    private Style std;
-    private Style code;
-    private Style error;
-    private Style propertiesStyle;
-    private Style entitiesStyle;
-    private Style typesStyle;
-    private Style constraintsStyle;
-    private Style blackMono;
-    private Style tablesStyle;
-    private Style formsStyle;
+
+    private Style infoStyle;
+
+    private Style stdStyle;
+
+    private Style codeStyle;
+
+    private Style errorStyle;
+
+    private Style propertyStyle;
+
+    private Style entityStyle;
+
+    private Style typeStyle;
+
+    private Style constraintStyle;
+
+    private Style tableStyle;
+
+    private Style formStyle;
+
+    private Style textStyle;
+
     private Console redirectedConsole;
 
     public PrintProviderImpl(JTextPane modelPane, JTextPane consolePane) {
         this.modelPane = modelPane;
         this.consolePane = consolePane;
 
-        info = consolePane.getStyledDocument().addStyle("Info", null);
-        StyleConstants.setFontFamily(info, "mono");
-        StyleConstants.setForeground(info, new Color(0, 0, 200));
+        //Register styles - console pane
+        infoStyle = registerStyle(consolePane, "info", new Color(0, 0, 200), false);
+        stdStyle = registerStyle(consolePane, "std", new Color(60, 60, 60), false);
+        codeStyle = registerStyle(consolePane, "code", new Color(40, 150, 40), false);
+        errorStyle = registerStyle(consolePane, "error", Color.RED, false);
 
-        std = consolePane.getStyledDocument().addStyle("Std", null);
-        StyleConstants.setFontFamily(std, "mono");
-        StyleConstants.setForeground(std, new Color(60, 60, 60));
-
-        code = consolePane.getStyledDocument().addStyle("Code", null);
-        StyleConstants.setFontFamily(code, "mono");
-        StyleConstants.setForeground(code, new Color(40, 150, 40));
-
-        error = consolePane.getStyledDocument().addStyle("Error", null);
-        StyleConstants.setFontFamily(error, "mono");
-        StyleConstants.setForeground(error, Color.RED);
-
-        propertiesStyle = consolePane.getStyledDocument().addStyle("prop_style", null);
-        StyleConstants.setFontFamily(propertiesStyle, "mono");
-        StyleConstants.setBold(propertiesStyle, true);
-        StyleConstants.setForeground(propertiesStyle, new Color(40, 150, 40));
-
-        entitiesStyle = consolePane.getStyledDocument().addStyle("ent_style", null);
-        StyleConstants.setFontFamily(entitiesStyle, "mono");
-        StyleConstants.setBold(entitiesStyle, true);
-        StyleConstants.setForeground(entitiesStyle, Color.BLUE);
-
-        typesStyle = consolePane.getStyledDocument().addStyle("type_style", null);
-        StyleConstants.setFontFamily(typesStyle, "mono");
-        StyleConstants.setForeground(typesStyle, new Color(40, 150, 40));
-
-        constraintsStyle = consolePane.getStyledDocument().addStyle("const_style", null);
-        StyleConstants.setFontFamily(constraintsStyle, "mono");
-        StyleConstants.setForeground(constraintsStyle, Color.RED);
-
-        blackMono = consolePane.getStyledDocument().addStyle("black_mono", null);
-        StyleConstants.setFontFamily(blackMono, "mono");
-        StyleConstants.setBold(blackMono, true);
-        StyleConstants.setForeground(blackMono, Color.BLACK);
-
-        formsStyle = consolePane.getStyledDocument().addStyle("forms_style", null);
-        StyleConstants.setFontFamily(formsStyle, "mono");
-        StyleConstants.setBold(formsStyle, true);
-        StyleConstants.setForeground(formsStyle, Color.BLUE);
-
-        tablesStyle = consolePane.getStyledDocument().addStyle("tables_mono", null);
-        StyleConstants.setFontFamily(tablesStyle, "mono");
-        StyleConstants.setBold(tablesStyle, true);
-        StyleConstants.setForeground(tablesStyle, new Color(40, 150, 40));
+        //Register styles - model pane
+        entityStyle = registerStyle(modelPane, "entity", Color.BLUE, true);
+        propertyStyle = registerStyle(modelPane, "property", new Color(40, 150, 40), true);
+        typeStyle = registerStyle(modelPane, "type", new Color(40, 150, 40), false);
+        constraintStyle = registerStyle(modelPane, "constraint", Color.RED, false);
+        formStyle = registerStyle(modelPane, "form", Color.BLUE, true);
+        tableStyle = registerStyle(modelPane, "table", new Color(40, 150, 40), true);
+        textStyle = registerStyle(modelPane, "text", Color.BLACK, true);
 
         redirectedConsole = new Console();
         redirectedConsole.redirect();
+    }
+
+    private Style registerStyle(JTextPane pane, String name, Color color, boolean bold) {
+        Style style = pane.getStyledDocument().addStyle(name, null);
+        StyleConstants.setFontFamily(style, "mono");
+        StyleConstants.setBold(style, bold);
+        StyleConstants.setForeground(style, color);
+        return style;
     }
 
     @Override
@@ -101,7 +87,8 @@ public class PrintProviderImpl implements PrintProvider {
     public void printModel(Object model) {
         if (model != null) {
             try {
-                printTextToModel("------------------- Zoznam entít -------------------", blackMono);
+                //Vytlaci zoznam entit
+                printTextToModel("------------------- Zoznam entít -------------------", textStyle);
                 Class modelClass = MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.metamodel.Model");
                 Class entityClass = MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.metamodel.Entity");
                 Class propertyClass = MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.metamodel.Property");
@@ -109,29 +96,29 @@ public class PrintProviderImpl implements PrintProvider {
 
                 Object entities[] = (Object[]) modelClass.getMethod("getEntities").invoke(model);
                 for (Object entity : entities) {
-                    printTextToModel("\n" + entityClass.getMethod("getName").invoke(entity), entitiesStyle);
-                    printTextToModel(" {", blackMono);
+                    printTextToModel("\n" + entityClass.getMethod("getName").invoke(entity), entityStyle);
+                    printTextToModel(" {", textStyle);
                     Object properties[] = (Object[]) entityClass.getMethod("getProperties").invoke(entity);
                     for (Object property : properties) {
-                        printTextToModel("\n   " + propertyClass.getMethod("getName").invoke(property), propertiesStyle);
-                        printTextToModel(" : ", blackMono);
-                        printTextToModel(propertyClass.getMethod("getType").invoke(property).toString(), typesStyle);
+                        printTextToModel("\n   " + propertyClass.getMethod("getName").invoke(property), propertyStyle);
+                        printTextToModel(" : ", textStyle);
+                        printTextToModel(propertyClass.getMethod("getType").invoke(property).toString(), typeStyle);
 
                         try {
                             Method method = propertyClass.getMethod("getConstraints");
                             Object constraints[] = (Object[]) method.invoke(property);
                             if (constraints != null) {
-                                printTextToModel(" [", constraintsStyle);
+                                printTextToModel(" [", constraintStyle);
                                 boolean first = true;
                                 for (Object constraint : constraints) {
                                     if (first != true) {
-                                        printTextToModel(", ", constraintsStyle);
+                                        printTextToModel(", ", constraintStyle);
                                     } else {
                                         first = false;
                                     }
-                                    printTextToModel(constraint.toString(), constraintsStyle);
+                                    printTextToModel(constraint.toString(), constraintStyle);
                                 }
-                                printTextToModel("]", constraintsStyle);
+                                printTextToModel("]", constraintStyle);
                             }
                         } catch (NoSuchMethodException ex) {
                             //Ked nie je metoda nic sa nevypise
@@ -146,15 +133,15 @@ public class PrintProviderImpl implements PrintProvider {
                         Object references[] = (Object[]) method.invoke(entity);
                         if (references != null) {
                             if (references.length > 0) {
-                                printTextToModel("\n", blackMono);
+                                printTextToModel("\n", textStyle);
                             }
                             for (Object reference : references) {
                                 Object from = entityClass.getMethod("getName").invoke(methodFrom.invoke(reference));
                                 Object to = entityClass.getMethod("getName").invoke(methodTo.invoke(reference));
-                                printTextToModel("\n   referencia z ", blackMono);
-                                printTextToModel(from.toString(), entitiesStyle);
-                                printTextToModel(" na ", blackMono);
-                                printTextToModel(to.toString(), entitiesStyle);
+                                printTextToModel("\n   referencia z ", textStyle);
+                                printTextToModel(from.toString(), entityStyle);
+                                printTextToModel(" na ", textStyle);
+                                printTextToModel(to.toString(), entityStyle);
                             }
                         }
                     } catch (NoSuchMethodException ex) {
@@ -162,28 +149,29 @@ public class PrintProviderImpl implements PrintProvider {
                     } catch (ClassNotFoundException ex) {
                         //Ked nie je metoda nic sa nevypise
                     }
-                    printTextToModel("\n   }", blackMono);
+                    printTextToModel("\n   }", textStyle);
                 }
-                // ------------------
-                printTextToModel("\n--------------------------------------------------------------\n", blackMono);
+
+                //Vytlacit pouzivatelske rozhranie
+                printTextToModel("\n--------------------------------------------------------------\n", textStyle);
                 try {
                     Class uiClass = MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.metamodel.ui.UI");
                     Object ui = modelClass.getMethod("getUi").invoke(model);
                     if (ui != null) {
-                        printTextToModel("\n\n------------------ Používateľské rozhranie ------------------", blackMono);
+                        printTextToModel("\n\n------------------ Používateľské rozhranie ------------------", textStyle);
                         Object tables[] = (Object[]) uiClass.getMethod("getTables").invoke(ui);
                         if (tables != null) {
                             for (Object table : tables) {
-                                printTextToModel("\n" + table.toString(), tablesStyle);
+                                printTextToModel("\n" + table.toString(), tableStyle);
                             }
                         }
                         Object forms[] = (Object[]) uiClass.getMethod("getForms").invoke(ui);
                         if (tables != null) {
                             for (Object form : forms) {
-                                printTextToModel("\n" + form.toString(), formsStyle);
+                                printTextToModel("\n" + form.toString(), formStyle);
                             }
                         }
-                        printTextToModel("\n---------------------------------------------------------------------\n", blackMono);
+                        printTextToModel("\n---------------------------------------------------------------------\n", textStyle);
                     }
                 } catch (ClassNotFoundException e) {
                     //ok
@@ -196,17 +184,17 @@ public class PrintProviderImpl implements PrintProvider {
 
     @Override
     public void printCode(String code) {
-        printText(code, this.code);
+        printText(code, this.codeStyle);
     }
 
     @Override
     public void printInfo(String text) {
-        printText(text, info);
+        printText(text, infoStyle);
     }
 
     @Override
     public void printError(String error) {
-        printText(error, this.error);
+        printText(error, this.errorStyle);
     }
 
     protected void printText(String text, Style style) {
@@ -226,11 +214,14 @@ public class PrintProviderImpl implements PrintProvider {
     }
 
     public class Console implements ActionListener, Runnable {
-
         private Thread readerStdout;
+
         private Thread readerStderr;
+
         private boolean quit;
+
         private final PipedInputStream pinStdout = new PipedInputStream();
+
         private final PipedInputStream pinStderr = new PipedInputStream();
 
         public void redirect() {

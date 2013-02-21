@@ -1,7 +1,8 @@
-package sk.tuke.magsa.maketool.action;
+package sk.tuke.magsa.maketool.action.processor;
 
 import java.io.File;
-import sk.tuke.magsa.maketool.MagsaConfig;
+import sk.tuke.magsa.maketool.core.MagsaConfig;
+import sk.tuke.magsa.maketool.action.MagsaAction;
 
 public class LineParser extends MagsaAction {
     @Override

@@ -6,5 +6,6 @@ Planovane ulohy (pridavat podla priority):
 - Upravit PrintProviderImpl aby nepouzival na vypisovanie toString - zamysliet sa nad nejkym vseobecnejsim riesenim - zjednodusit celkovo triedu PrintProviderImpl, mozno aj vynat konzolu - je to ConsoleRedirect
 - Okomentovat aplikaciu - aspon rozhrania a ich metody, triedy a verejne metody tried
 - Vyclenit logiku prace s projektami z triedy MainFrame - napr. do triedy Project, lebo co nebolo kde sa tam vopchalo
+- Prezriet vsetky text aby boli po slovensky
 
 Vyriesene ulohy (presunut tu po vyrieseni):
