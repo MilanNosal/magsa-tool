@@ -1,9 +1,8 @@
 package sk.tuke.magsa.maketool.ui;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.io.PrintStream;
@@ -22,9 +21,9 @@ public class PrintProviderImpl implements PrintProvider {
 
     private final JTextPane consolePane;
 
-    private Style infoStyle;
+    private Style textStyle;
 
-    private Style stdStyle;
+    private Style infoStyle;
 
     private Style codeStyle;
 
@@ -42,36 +41,37 @@ public class PrintProviderImpl implements PrintProvider {
 
     private Style formStyle;
 
-    private Style textStyle;
+    private Style keywordStyle;
 
-    private Console redirectedConsole;
+    private Style commentStyle;
 
     public PrintProviderImpl(JTextPane modelPane, JTextPane consolePane) {
         this.modelPane = modelPane;
         this.consolePane = consolePane;
 
         //Register styles - console pane
+        textStyle = registerStyle(consolePane, "text", Color.BLACK, false);
         infoStyle = registerStyle(consolePane, "info", new Color(0, 0, 200), false);
-        stdStyle = registerStyle(consolePane, "std", new Color(60, 60, 60), false);
         codeStyle = registerStyle(consolePane, "code", new Color(40, 150, 40), false);
         errorStyle = registerStyle(consolePane, "error", Color.RED, false);
 
         //Register styles - model pane
+        keywordStyle = registerStyle(modelPane, "entity", Color.BLUE, true);
+        commentStyle = registerStyle(modelPane, "constraint", Color.RED, false);
+
         entityStyle = registerStyle(modelPane, "entity", Color.BLUE, true);
         propertyStyle = registerStyle(modelPane, "property", new Color(40, 150, 40), true);
         typeStyle = registerStyle(modelPane, "type", new Color(40, 150, 40), false);
         constraintStyle = registerStyle(modelPane, "constraint", Color.RED, false);
         formStyle = registerStyle(modelPane, "form", Color.BLUE, true);
         tableStyle = registerStyle(modelPane, "table", new Color(40, 150, 40), true);
-        textStyle = registerStyle(modelPane, "text", Color.BLACK, true);
 
-        redirectedConsole = new Console();
-        redirectedConsole.redirect();
+        redirect();
     }
 
     private Style registerStyle(JTextPane pane, String name, Color color, boolean bold) {
         Style style = pane.getStyledDocument().addStyle(name, null);
-        StyleConstants.setFontFamily(style, "mono");
+        StyleConstants.setFontFamily(style, "DialogInput");
         StyleConstants.setBold(style, bold);
         StyleConstants.setForeground(style, color);
         return style;
@@ -88,37 +88,35 @@ public class PrintProviderImpl implements PrintProvider {
         if (model != null) {
             try {
                 //Vytlaci zoznam entit
-                printTextToModel("------------------- Zoznam entít -------------------", textStyle);
+                printTextToModel("# ---------- Zoznam entít ----------", commentStyle);
                 Class modelClass = MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.metamodel.Model");
                 Class entityClass = MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.metamodel.Entity");
                 Class propertyClass = MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.metamodel.Property");
 
-
                 Object entities[] = (Object[]) modelClass.getMethod("getEntities").invoke(model);
                 for (Object entity : entities) {
-                    printTextToModel("\n" + entityClass.getMethod("getName").invoke(entity), entityStyle);
-                    printTextToModel(" {", textStyle);
+                    printTextToModel("\nentity ", keywordStyle);
+                    printTextToModel(entityClass.getMethod("getName").invoke(entity) + " {", textStyle);
+
                     Object properties[] = (Object[]) entityClass.getMethod("getProperties").invoke(entity);
                     for (Object property : properties) {
-                        printTextToModel("\n   " + propertyClass.getMethod("getName").invoke(property), propertyStyle);
-                        printTextToModel(" : ", textStyle);
-                        printTextToModel(propertyClass.getMethod("getType").invoke(property).toString(), typeStyle);
+                        printTextToModel("\n    " + propertyClass.getMethod("getName").invoke(property) + " : ", textStyle);
+                        printTextToModel(propertyClass.getMethod("getType").invoke(property).toString().toLowerCase(), keywordStyle);
 
                         try {
                             Method method = propertyClass.getMethod("getConstraints");
                             Object constraints[] = (Object[]) method.invoke(property);
                             if (constraints != null) {
-                                printTextToModel(" [", constraintStyle);
+                                printTextToModel(" ", textStyle);
                                 boolean first = true;
                                 for (Object constraint : constraints) {
                                     if (first != true) {
-                                        printTextToModel(", ", constraintStyle);
+                                        printTextToModel(", ", textStyle);
                                     } else {
                                         first = false;
                                     }
-                                    printTextToModel(constraint.toString(), constraintStyle);
+                                    printTextToModel(constraint.toString(), keywordStyle);
                                 }
-                                printTextToModel("]", constraintStyle);
                             }
                         } catch (NoSuchMethodException ex) {
                             //Ked nie je metoda nic sa nevypise
@@ -138,9 +136,9 @@ public class PrintProviderImpl implements PrintProvider {
                             for (Object reference : references) {
                                 Object from = entityClass.getMethod("getName").invoke(methodFrom.invoke(reference));
                                 Object to = entityClass.getMethod("getName").invoke(methodTo.invoke(reference));
-                                printTextToModel("\n   referencia z ", textStyle);
+                                printTextToModel("\n    reference from ", textStyle);
                                 printTextToModel(from.toString(), entityStyle);
-                                printTextToModel(" na ", textStyle);
+                                printTextToModel(" to ", textStyle);
                                 printTextToModel(to.toString(), entityStyle);
                             }
                         }
@@ -149,16 +147,16 @@ public class PrintProviderImpl implements PrintProvider {
                     } catch (ClassNotFoundException ex) {
                         //Ked nie je metoda nic sa nevypise
                     }
-                    printTextToModel("\n   }", textStyle);
+                    printTextToModel("\n}\n", textStyle);
                 }
 
-                //Vytlacit pouzivatelske rozhranie
-                printTextToModel("\n--------------------------------------------------------------\n", textStyle);
+                //Vytlaci pouzivatelske rozhranie
+                //TODO : dorobit lepsie prejdenie tabuliek a formularov
                 try {
                     Class uiClass = MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.metamodel.ui.UI");
                     Object ui = modelClass.getMethod("getUi").invoke(model);
                     if (ui != null) {
-                        printTextToModel("\n\n------------------ Používateľské rozhranie ------------------", textStyle);
+                        printTextToModel("\n# ---------- Používateľské rozhranie ----------", commentStyle);
                         Object tables[] = (Object[]) uiClass.getMethod("getTables").invoke(ui);
                         if (tables != null) {
                             for (Object table : tables) {
@@ -171,7 +169,6 @@ public class PrintProviderImpl implements PrintProvider {
                                 printTextToModel("\n" + form.toString(), formStyle);
                             }
                         }
-                        printTextToModel("\n---------------------------------------------------------------------\n", textStyle);
                     }
                 } catch (ClassNotFoundException e) {
                     //ok
@@ -184,133 +181,73 @@ public class PrintProviderImpl implements PrintProvider {
 
     @Override
     public void printCode(String code) {
-        printText(code, this.codeStyle);
+        printTextToConsole(code, codeStyle);
     }
 
     @Override
     public void printInfo(String text) {
-        printText(text, infoStyle);
+        printTextToConsole(text, infoStyle);
     }
 
     @Override
     public void printError(String error) {
-        printText(error, this.errorStyle);
+        printTextToConsole(error, errorStyle);
     }
 
-    protected void printText(String text, Style style) {
+    private synchronized void printTextToConsole(String text, Style style) {
+        printText(consolePane, text, style);
+    }
+
+    private synchronized void printTextToModel(String text, Style style) {
+        printText(modelPane, text, style);
+    }
+
+    private void printText(JTextPane pane, String text, Style style) {
         try {
-            consolePane.getStyledDocument().insertString(consolePane.getStyledDocument().getLength(), text + "\n", style);
+            pane.getStyledDocument().insertString(pane.getStyledDocument().getLength(), text, style);
         } catch (BadLocationException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PrintProviderImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    private void printTextToModel(String text, Style style) {
-        try {
-            modelPane.getStyledDocument().insertString(modelPane.getStyledDocument().getLength(), text, style);
-        } catch (BadLocationException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    private void redirect() {
+        PipedOutputStream output;
+        //output stream
+        output = new PipedOutputStream();
+        new StreamRedirector(output, textStyle).start();
+        System.setOut(new PrintStream(output));
+
+        //error stream
+        output = new PipedOutputStream();
+        new StreamRedirector(output, errorStyle).start();
+        System.setErr(new PrintStream(output));
     }
 
-    public class Console implements ActionListener, Runnable {
-        private Thread readerStdout;
+    /***************************************************************************/
+    /***************************************************************************/
+    public class StreamRedirector extends Thread {
+        private BufferedReader reader;
 
-        private Thread readerStderr;
+        private Style style;
 
-        private boolean quit;
-
-        private final PipedInputStream pinStdout = new PipedInputStream();
-
-        private final PipedInputStream pinStderr = new PipedInputStream();
-
-        public void redirect() {
+        public StreamRedirector(PipedOutputStream output, Style style) {
+            this.style = style;
             try {
-                PipedOutputStream pout = new PipedOutputStream(this.pinStdout);
-                System.setOut(new PrintStream(pout, true));
+                reader = new BufferedReader(new InputStreamReader(new PipedInputStream(output)));
             } catch (java.io.IOException ex) {
-                printText("Couldn't redirect STDOUT to this console\n" + ex.getMessage(), consolePane.getStyle("Error"));
+                printError("Couldn't redirect stream to the console\n" + ex.getMessage());
             }
-
-            try {
-                PipedOutputStream pout2 = new PipedOutputStream(this.pinStderr);
-                System.setErr(new PrintStream(pout2, true));
-            } catch (java.io.IOException ex) {
-                printText("Couldn't redirect STDERR to this console\n" + ex.getMessage(), consolePane.getStyle("Error"));
-            }
-
-            quit = false; // signals the Threads that they should exit
-
-            // Starting two seperate threads to read from the PipedInputStreams				
-            //
-            readerStdout = new Thread(this);
-            readerStdout.setDaemon(true);
-            readerStdout.start();
-            //
-            readerStderr = new Thread(this);
-            readerStderr.setDaemon(true);
-            readerStderr.start();
-
-            Runtime.getRuntime().addShutdownHook(new Thread() {
-                @Override
-                public void run() {
-                    quit = true;
-                }
-            });
-        }
-
-        @Override
-        public synchronized void actionPerformed(ActionEvent evt) {
-            consolePane.setText("");
         }
 
         @Override
         public synchronized void run() {
-            try {
-                while (Thread.currentThread() == readerStdout && !quit) {
-                    try {
-                        this.wait(100);
-                    } catch (InterruptedException ie) {
-                    }
-                    if (pinStdout.available() != 0) {
-                        printText(this.readLine(pinStdout) + "\n", consolePane.getStyle("Std"));
-                    }
+            while (true) {
+                try {
+                    printTextToConsole(reader.readLine() + "\n", style);
+                } catch (Exception e) {
+                    printError("Console reports an internal error.\nThe error is: " + e);
                 }
-
-                while (Thread.currentThread() == readerStderr && !quit) {
-                    try {
-                        this.wait(100);
-                    } catch (InterruptedException ie) {
-                    }
-                    if (pinStderr.available() != 0) {
-                        printText(this.readLine(pinStderr) + "\n", consolePane.getStyle("Error"));
-                    }
-                }
-            } catch (Exception e) {
-                printText("Console reports an Internal error.\nThe error is: " + e, consolePane.getStyle("Error"));
             }
-        }
-
-        private void printText(String text, Style style) {
-            try {
-                consolePane.getStyledDocument().insertString(consolePane.getStyledDocument().getLength(), text, style);
-            } catch (BadLocationException ex) {
-                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        private synchronized String readLine(PipedInputStream in) throws IOException {
-            String input = "";
-            do {
-                int available = in.available();
-                if (available == 0) {
-                    break;
-                }
-                byte b[] = new byte[available];
-                in.read(b);
-                input = input + new String(b, 0, b.length);
-            } while (!input.endsWith("\n") && !input.endsWith("\r\n") && !quit);
-            return input;
         }
     }
 }

@@ -46,21 +46,21 @@ public class Task1 extends AbstractTaskPanel {
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle"); // NOI18N
         modelDir.setLabel(bundle.getString("modelDir")); // NOI18N
-        add(modelDir, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, 105, 55));
+        add(modelDir, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, 105, 55));
 
         model.setLabel(bundle.getString("model")); // NOI18N
-        add(model, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 220, 70, 60));
+        add(model, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 70, 70, 60));
 
         lineParser.setActionName(bundle.getString("parse")); // NOI18N
         lineParser.setLabel(bundle.getString("lineParser")); // NOI18N
-        add(lineParser, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 220, 100, 60));
-        add(arrow14, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 240, 50, 20));
+        add(lineParser, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 70, 100, 60));
+        add(arrow14, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 90, 50, 20));
 
         arrow2.setBarbStyle(sk.tuke.magsa.maketool.component.Arrow.BarbStyle.FILLED);
-        add(arrow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 240, 50, 20));
+        add(arrow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 90, 50, 20));
 
         jLabel3.setBackground(new java.awt.Color(241, 182, 139));
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText(bundle.getString("parsingPhase")); // NOI18N
         jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
