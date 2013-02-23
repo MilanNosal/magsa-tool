@@ -59,40 +59,40 @@ public class Task3 extends AbstractTaskPanel {
 
         arrow2.setBarbStyle(sk.tuke.magsa.maketool.component.Arrow.BarbStyle.FILLED);
         arrow2.setOrientation(sk.tuke.magsa.maketool.component.Arrow.Orientation.NORTHEAST);
-        add(arrow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 320, 280, 60));
+        add(arrow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 130, 280, 60));
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle"); // NOI18N
         modelDir.setLabel(bundle.getString("modelDir")); // NOI18N
-        add(modelDir, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 240, 105, 55));
+        add(modelDir, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, 105, 55));
 
         constraintClass.setLabel(bundle.getString("constraintClass")); // NOI18N
-        add(constraintClass, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 350, 180, 55));
+        add(constraintClass, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, 180, 55));
 
         model.setLabel(bundle.getString("model")); // NOI18N
-        add(model, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 240, 70, 60));
+        add(model, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 50, 70, 60));
 
         constraintBuilder.setActionName(bundle.getString("compose")); // NOI18N
         constraintBuilder.setLabel(bundle.getString("constraintBuilder")); // NOI18N
-        add(constraintBuilder, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 280, 90, 60));
+        add(constraintBuilder, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 90, 90, 60));
 
         model2.setLabel(bundle.getString("model2")); // NOI18N
-        add(model2, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 280, 70, 60));
-        add(arrow13, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 260, 50, 20));
+        add(model2, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 90, 70, 60));
+        add(arrow13, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, 50, 20));
 
         arrow14.setBarbStyle(sk.tuke.magsa.maketool.component.Arrow.BarbStyle.FILLED);
         arrow14.setOrientation(sk.tuke.magsa.maketool.component.Arrow.Orientation.SOUTHEAST);
-        add(arrow14, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 270, 20, 30));
-        add(arrow15, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 290, 30, 30));
+        add(arrow14, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, 20, 30));
+        add(arrow15, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 100, 30, 30));
 
         lineParser.setActionName(bundle.getString("parse")); // NOI18N
         lineParser.setLabel(bundle.getString("lineParser")); // NOI18N
-        add(lineParser, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 240, 100, 60));
+        add(lineParser, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, 100, 60));
 
         arrow4.setBarbStyle(sk.tuke.magsa.maketool.component.Arrow.BarbStyle.FILLED);
-        add(arrow4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 260, 50, 20));
+        add(arrow4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 50, 20));
 
         jLabel1.setBackground(new java.awt.Color(175, 249, 165));
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText(bundle.getString("compositionPhase")); // NOI18N
         jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
@@ -100,7 +100,7 @@ public class Task3 extends AbstractTaskPanel {
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 0, 520, 530));
 
         jLabel3.setBackground(new java.awt.Color(241, 182, 139));
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText(bundle.getString("parsingPhase")); // NOI18N
         jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);

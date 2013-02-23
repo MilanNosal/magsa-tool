@@ -1,6 +1,6 @@
 package sk.tuke.magsa.maketool.ui;
 
-import java.awt.Component;
+import java.awt.Cursor;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,15 +13,19 @@ import sk.tuke.magsa.maketool.task.AbstractTaskPanel;
 
 public class MainFrame extends javax.swing.JFrame {
     private final Project project = new Project();
-    
+
     private final PrintProvider printProvider;
+
+    private final AbstractTaskPanel[] tasks;
 
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         initComponents();
-        
+
+        tasks = new AbstractTaskPanel[]{task1, task2, task3, task4, task5, task6, task7, task8};
+
         ImageIcon img = new ImageIcon(getClass().getResource("/resources/icon.png"));
         this.setIconImage(img.getImage());
 
@@ -36,35 +40,35 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     private void configure(PrintProvider printProvider) {
-        for (Component component : tasks.getComponents()) {
-            if (component instanceof AbstractTaskPanel) {
-                ((AbstractTaskPanel) component).configure(printProvider);
-            }
-        }
-    }
-
-    private void init() {
-        for (Component component : tasks.getComponents()) {
-            if (component instanceof AbstractTaskPanel) {
-                ((AbstractTaskPanel) component).init();
-            }
+        for (AbstractTaskPanel task : tasks) {
+            task.configure(printProvider);
         }
     }
 
     private void reset() {
-        for (Component component : tasks.getComponents()) {
-            if (component instanceof AbstractTaskPanel) {
-                ((AbstractTaskPanel) component).reset();
-            }
+        for (AbstractTaskPanel task : tasks) {
+            task.reset();
+        }
+    }
+
+    private void init() {
+        for (AbstractTaskPanel task : tasks) {
+            task.init();
         }
     }
 
     private void openProject() {
-        //File curr = new File(System.getProperty("user.dir"));
-        //TODO - opravit nastavenie cesty
-        printProvider.reset();
-        File currentDirectory = new File(System.getProperty("user.dir") + "/..");
+        Cursor oldCursor = getCursor();
         try {
+            setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+
+            printProvider.reset();
+
+            //File curr = new File(System.getProperty("user.dir"));
+            //TODO - opravit nastavenie cesty
+            File currentDirectory = new File(System.getProperty("user.dir") + "/..");
+
+            try {
             if (!currentDirectory.getCanonicalPath().endsWith("magsa")) {
                 JFileChooser chooser = new JFileChooser();
                 chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -75,41 +79,48 @@ public class MainFrame extends javax.swing.JFrame {
                     return;
                 }
             }
-            
-            String path = currentDirectory.getCanonicalPath();
 
-            printProvider.printInfo("Načítavam projekt z adresára " + path);
-            project.openProject(path);
+                String path = currentDirectory.getCanonicalPath();
 
-            reset();
-            init();
+                //Nacitanie a build projektu
+                project.openProject(path);
 
-            printProvider.printInfo("Projekt bol úspešne načítaný");
-        } catch (Exception ex) {
-            printProvider.printError("Chyba: " + ex.getMessage());
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, "Error opening project", ex);
+                //Resetovanie komponentov (State.UNAVAILABLE) a nastavenie inicialneho stavu
+                reset();
+                init();
+
+                printProvider.printInfo("Projekt bol úspešne načítaný z adresára " + path + ".\n");
+            } catch (Exception ex) {
+                printProvider.printError("Chyba: " + ex.getMessage());
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, "Error opening project", ex);
+            }
+        } finally {
+            setCursor(oldCursor);
         }
     }
 
     private void refreshProject() {
-        printProvider.reset();
+        Cursor oldCursor = getCursor();
         try {
-            // Aj toto predpokladam ze treba -- da sa nahradit volanim setprojectpath s povodnou hodnotou
-            // resp. da sa to dat do buildu, ale potom to bude zbytocne dvakrat volane
-            // pri otvarani noveho projektu, pretoze pred zacatim buildu uz musi
-            // byt projectpath nastaveny
-            String path = MagsaConfig.getInstance().getProjectPath();
-            printProvider.printInfo("Obnovujem projekt z adresára " + path);
-            
-            project.openProject(path);
+            setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            printProvider.reset();
+            try {
+                String path = MagsaConfig.getInstance().getProjectPath();
 
-            reset();
-            init();
+                //Nacitanie a build projektu
+                project.openProject(path);
 
-            printProvider.printInfo("Projekt bol úspešne obnovený");
-        } catch (Exception ex) {
-            printProvider.printError("Chyba: " + ex.getMessage());
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, "Error refreshing project", ex);
+                //Resetovanie komponentov (State.UNAVAILABLE) a nastavenie inicialneho stavu
+                reset();
+                init();
+
+                printProvider.printInfo("Projekt bol úspešne obnovený z adresára " + path + ".\n");
+            } catch (Exception ex) {
+                printProvider.printError("Chyba: " + ex.getMessage());
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, "Error refreshing project", ex);
+            }
+        } finally {
+            setCursor(oldCursor);
         }
     }
 
@@ -133,14 +144,30 @@ public class MainFrame extends javax.swing.JFrame {
         uiFileTextField = new javax.swing.JTextField();
         centerPanel = new javax.swing.JPanel();
         jSplitPane2 = new javax.swing.JSplitPane();
-        tasks = new javax.swing.JTabbedPane();
+        tasksTab = new javax.swing.JTabbedPane();
+        scrollPane1 = new javax.swing.JScrollPane();
+        panel1 = new javax.swing.JPanel();
         task1 = new sk.tuke.magsa.maketool.task.Task1();
+        scrollPane2 = new javax.swing.JScrollPane();
+        panel2 = new javax.swing.JPanel();
         task2 = new sk.tuke.magsa.maketool.task.Task2();
+        scrollPane3 = new javax.swing.JScrollPane();
+        panel3 = new javax.swing.JPanel();
         task3 = new sk.tuke.magsa.maketool.task.Task3();
+        scrollPane4 = new javax.swing.JScrollPane();
+        panel4 = new javax.swing.JPanel();
         task4 = new sk.tuke.magsa.maketool.task.Task4();
+        scrollPane5 = new javax.swing.JScrollPane();
+        panel5 = new javax.swing.JPanel();
         task5 = new sk.tuke.magsa.maketool.task.Task5();
+        scrollPane6 = new javax.swing.JScrollPane();
+        panel6 = new javax.swing.JPanel();
         task6 = new sk.tuke.magsa.maketool.task.Task6();
+        scrollPane7 = new javax.swing.JScrollPane();
+        panel7 = new javax.swing.JPanel();
         task7 = new sk.tuke.magsa.maketool.task.Task7();
+        scrollPane8 = new javax.swing.JScrollPane();
+        panel8 = new javax.swing.JPanel();
         task8 = new sk.tuke.magsa.maketool.task.Task8();
         jSplitPane1 = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
@@ -154,11 +181,19 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         nacitatMenu = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        restartujMenu = new javax.swing.JMenuItem();
         zavrietMenu = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        materialyMenu = new javax.swing.JMenuItem();
+        oProgrameMenu = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MagsaTool");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         topPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
@@ -212,21 +247,69 @@ public class MainFrame extends javax.swing.JFrame {
 
         jSplitPane2.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
-        tasks.addChangeListener(new javax.swing.event.ChangeListener() {
+        tasksTab.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                tasksStateChanged(evt);
+                tasksTabStateChanged(evt);
             }
         });
-        tasks.addTab("Cvičenie 2 (úloha 1)", task1);
-        tasks.addTab("Cvičenie 3 (úloha 2)", task2);
-        tasks.addTab("Cvičenie 5 (úloha 3)", task3);
-        tasks.addTab("Cvičenie 6 (úloha 4)", task4);
-        tasks.addTab("Cvičenie 8 (úloha 5)", task5);
-        tasks.addTab("Cvičenie 9 (úloha 6)", task6);
-        tasks.addTab("Cvičenie 11 (úloha 7)", task7);
-        tasks.addTab("Cvičenie 12 (úloha 8)", task8);
 
-        jSplitPane2.setLeftComponent(tasks);
+        panel1.setLayout(new java.awt.GridBagLayout());
+        panel1.add(task1, new java.awt.GridBagConstraints());
+
+        scrollPane1.setViewportView(panel1);
+
+        tasksTab.addTab("Cvičenie 2 (úloha 1)", scrollPane1);
+
+        panel2.setLayout(new java.awt.GridBagLayout());
+        panel2.add(task2, new java.awt.GridBagConstraints());
+
+        scrollPane2.setViewportView(panel2);
+
+        tasksTab.addTab("Cvičenie 3 (úloha 2)", scrollPane2);
+
+        panel3.setLayout(new java.awt.GridBagLayout());
+        panel3.add(task3, new java.awt.GridBagConstraints());
+
+        scrollPane3.setViewportView(panel3);
+
+        tasksTab.addTab("Cvičenie 5 (úloha 3)", scrollPane3);
+
+        panel4.setLayout(new java.awt.GridBagLayout());
+        panel4.add(task4, new java.awt.GridBagConstraints());
+
+        scrollPane4.setViewportView(panel4);
+
+        tasksTab.addTab("Cvičenie 6 (úloha 4)", scrollPane4);
+
+        panel5.setLayout(new java.awt.GridBagLayout());
+        panel5.add(task5, new java.awt.GridBagConstraints());
+
+        scrollPane5.setViewportView(panel5);
+
+        tasksTab.addTab("Cvičenie 8 (úloha 5)", scrollPane5);
+
+        panel6.setLayout(new java.awt.GridBagLayout());
+        panel6.add(task6, new java.awt.GridBagConstraints());
+
+        scrollPane6.setViewportView(panel6);
+
+        tasksTab.addTab("Cvičenie 9 (úloha 6)", scrollPane6);
+
+        panel7.setLayout(new java.awt.GridBagLayout());
+        panel7.add(task7, new java.awt.GridBagConstraints());
+
+        scrollPane7.setViewportView(panel7);
+
+        tasksTab.addTab("Cvičenie 11 (úloha 7)", scrollPane7);
+
+        panel8.setLayout(new java.awt.GridBagLayout());
+        panel8.add(task8, new java.awt.GridBagConstraints());
+
+        scrollPane8.setViewportView(panel8);
+
+        tasksTab.addTab("Cvičenie 12 (úloha 8)", scrollPane8);
+
+        jSplitPane2.setLeftComponent(tasksTab);
 
         jSplitPane1.setDividerLocation(500);
 
@@ -254,7 +337,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -284,7 +367,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -307,14 +390,14 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jMenu1.add(nacitatMenu);
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setText("Reštartovať projekt");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        restartujMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
+        restartujMenu.setText("Reštartovať projekt");
+        restartujMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                restartujMenuActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(restartujMenu);
 
         zavrietMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
         zavrietMenu.setText("Ukončíť");
@@ -326,6 +409,26 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu1.add(zavrietMenu);
 
         jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Pomoc");
+
+        materialyMenu.setText("Materiály");
+        materialyMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                materialyMenuActionPerformed(evt);
+            }
+        });
+        jMenu2.add(materialyMenu);
+
+        oProgrameMenu.setText("O programe");
+        oProgrameMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                oProgrameMenuActionPerformed(evt);
+            }
+        });
+        jMenu2.add(oProgrameMenu);
+
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -356,16 +459,28 @@ public class MainFrame extends javax.swing.JFrame {
         MagsaConfig.getInstance().setModelDir(modelDirTextField.getText().trim());
     }//GEN-LAST:event_modelDirTextFieldKeyReleased
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void restartujMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restartujMenuActionPerformed
         refreshProject();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_restartujMenuActionPerformed
 
-    private void tasksStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tasksStateChanged
-        modelDirTextField.setEditable(tasks.getSelectedIndex() < 4);
-        constraintClassTextField.setEditable(tasks.getSelectedIndex() > 1 && tasks.getSelectedIndex() < 4);
-        modelFileTextField.setEditable(tasks.getSelectedIndex() > 3);
-        uiFileTextField.setEditable(tasks.getSelectedIndex() > 5);
-    }//GEN-LAST:event_tasksStateChanged
+    private void tasksTabStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tasksTabStateChanged
+        modelDirTextField.setEditable(tasksTab.getSelectedIndex() < 4);
+        constraintClassTextField.setEditable(tasksTab.getSelectedIndex() > 1 && tasksTab.getSelectedIndex() < 4);
+        modelFileTextField.setEditable(tasksTab.getSelectedIndex() > 3);
+        uiFileTextField.setEditable(tasksTab.getSelectedIndex() > 5);
+    }//GEN-LAST:event_tasksTabStateChanged
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        openProject();
+    }//GEN-LAST:event_formWindowOpened
+
+    private void materialyMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialyMenuActionPerformed
+
+    }//GEN-LAST:event_materialyMenuActionPerformed
+
+    private void oProgrameMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oProgrameMenuActionPerformed
+        new OProgrameDialog(this).setVisible(true);
+    }//GEN-LAST:event_oProgrameMenuActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel centerPanel;
@@ -378,18 +493,37 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPane2;
+    private javax.swing.JMenuItem materialyMenu;
     private javax.swing.JTextField modelDirTextField;
     private javax.swing.JTextField modelFileTextField;
     private javax.swing.JTextPane modelPane;
     private javax.swing.JMenuItem nacitatMenu;
+    private javax.swing.JMenuItem oProgrameMenu;
+    private javax.swing.JPanel panel1;
+    private javax.swing.JPanel panel2;
+    private javax.swing.JPanel panel3;
+    private javax.swing.JPanel panel4;
+    private javax.swing.JPanel panel5;
+    private javax.swing.JPanel panel6;
+    private javax.swing.JPanel panel7;
+    private javax.swing.JPanel panel8;
+    private javax.swing.JMenuItem restartujMenu;
+    private javax.swing.JScrollPane scrollPane1;
+    private javax.swing.JScrollPane scrollPane2;
+    private javax.swing.JScrollPane scrollPane3;
+    private javax.swing.JScrollPane scrollPane4;
+    private javax.swing.JScrollPane scrollPane5;
+    private javax.swing.JScrollPane scrollPane6;
+    private javax.swing.JScrollPane scrollPane7;
+    private javax.swing.JScrollPane scrollPane8;
     private sk.tuke.magsa.maketool.task.Task1 task1;
     private sk.tuke.magsa.maketool.task.Task2 task2;
     private sk.tuke.magsa.maketool.task.Task3 task3;
@@ -398,7 +532,7 @@ public class MainFrame extends javax.swing.JFrame {
     private sk.tuke.magsa.maketool.task.Task6 task6;
     private sk.tuke.magsa.maketool.task.Task7 task7;
     private sk.tuke.magsa.maketool.task.Task8 task8;
-    private javax.swing.JTabbedPane tasks;
+    private javax.swing.JTabbedPane tasksTab;
     private javax.swing.JPanel topPanel;
     private javax.swing.JTextField uiFileTextField;
     private javax.swing.JMenuItem zavrietMenu;

@@ -27,7 +27,7 @@ public class ActionWrapper extends MagsaAction {
     public void execute() throws Exception {
         try {
             printProvider.reset();
-            printProvider.printInfo("Vykonaný kód:");
+            printProvider.printInfo("Vykonaný kód:\n");
             printProvider.printCode(describe());
             action.setContext(context);
             action.execute();

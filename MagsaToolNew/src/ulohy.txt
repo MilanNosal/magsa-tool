@@ -1,11 +1,11 @@
 Planovane ulohy (pridavat podla priority):
 - Upravit hlavne menu aplikacie - pridat polozku About, zmenit zavriet projekt na zavriet aplikaciu, premenovat restartovat projekt na znova nacitat
-- Dodat automaticke nacitanie projektu po spusteni v spravnom adresari
-- Upravit formular hlavneho okna aplikacie - aby sa dalo zmensovat tab - panely do scrolo a vycentrovanie na zaciatok
 - Zabezpecit jasne navigovanie na chyby v konzole - napr. aj na ulohu v zadani - linka na web
 - Upravit PrintProviderImpl aby nepouzival na vypisovanie toString - zamysliet sa nad nejkym vseobecnejsim riesenim - zjednodusit celkovo triedu PrintProviderImpl, mozno aj vynat konzolu - je to ConsoleRedirect
 - Okomentovat aplikaciu - aspon rozhrania a ich metody, triedy a verejne metody tried
-- Vyclenit logiku prace s projektami z triedy MainFrame - napr. do triedy Project, lebo co nebolo kde sa tam vopchalo
 - Prezriet vsetky text aby boli po slovensky
 
 Vyriesene ulohy (presunut tu po vyrieseni):
+- Upravit formular hlavneho okna aplikacie - aby sa dalo zmensovat tab - panely do scroll a vycentrovanie na zaciatok
+- Vyclenit logiku prace s projektami z triedy MainFrame - napr. do triedy Project, lebo co nebolo kde sa tam vopchalo
+- Dodat automaticke nacitanie projektu po spusteni v spravnom adresari - reakcia na windows opened, dodany wait cursor
