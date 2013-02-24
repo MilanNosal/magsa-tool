@@ -1,10 +1,12 @@
 package sk.tuke.magsa.maketool.action.processor;
 
+import ak.tuke.task.annotation.Task;
 import java.io.FileReader;
 import java.io.Reader;
 import sk.tuke.magsa.maketool.core.MagsaConfig;
 import sk.tuke.magsa.maketool.action.MagsaAction;
 
+@Task(module = "08")
 public class ExternalParser extends MagsaAction {
     @Override
     public void execute() throws Exception {

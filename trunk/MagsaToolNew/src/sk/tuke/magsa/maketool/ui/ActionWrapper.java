@@ -1,5 +1,6 @@
 package sk.tuke.magsa.maketool.ui;
 
+import ak.tuke.task.annotation.Task;
 import sk.tuke.magsa.maketool.Action;
 import sk.tuke.magsa.maketool.Context;
 import sk.tuke.magsa.maketool.PrintProvider;
@@ -7,6 +8,8 @@ import sk.tuke.magsa.maketool.action.MagsaAction;
 import sk.tuke.magsa.maketool.action.MagsaContext;
 
 public class ActionWrapper extends MagsaAction {
+    private static final String WEB_CVICENIA = "http://hornad.fei.tuke.sk/~poruban/magsa/%s.html#%s";
+
     private final Action action;
 
     private final PrintProvider printProvider;
@@ -19,10 +22,10 @@ public class ActionWrapper extends MagsaAction {
 
     @Override
     public void setContext(Context context) {
-        this.context = (MagsaContext)context;
+        this.context = (MagsaContext) context;
         action.setContext(context);
     }
-    
+
     @Override
     public void execute() throws Exception {
         try {
@@ -35,8 +38,22 @@ public class ActionWrapper extends MagsaAction {
                 printProvider.printModel(context.getModel());
             }
         } catch (Exception ex) {
-            printProvider.printError("Chyba: " + ex.getMessage());
+            //TODO: lepsie spracovanie chyby
+            printProvider.printError("Chyba: " + ex.getMessage() + ".\n");
+            printTaskWebLink();
             throw ex;
+        }
+    }
+
+    private void printTaskWebLink() {
+        Task taskAnnotation = action.getClass().getAnnotation(Task.class);
+        if (taskAnnotation != null) {
+            String id = taskAnnotation.id();
+            if ("".equals(id)) {
+                id = action.getClass().getSimpleName();
+            }
+            String webLink = String.format(WEB_CVICENIA, taskAnnotation.module(), id);
+            printProvider.printInfo(String.format("Pozrite si opis úlohy na %s\n", webLink));
         }
     }
 
