@@ -29,14 +29,6 @@ public class PrintProviderImpl implements PrintProvider {
 
     private Style errorStyle;
 
-    private Style propertyStyle;
-
-    private Style entityStyle;
-
-    private Style typeStyle;
-
-    private Style constraintStyle;
-
     private Style tableStyle;
 
     private Style formStyle;
@@ -58,11 +50,6 @@ public class PrintProviderImpl implements PrintProvider {
         //Register styles - model pane
         keywordStyle = registerStyle(modelPane, "entity", Color.BLUE, true);
         commentStyle = registerStyle(modelPane, "constraint", Color.RED, false);
-
-        entityStyle = registerStyle(modelPane, "entity", Color.BLUE, true);
-        propertyStyle = registerStyle(modelPane, "property", new Color(40, 150, 40), true);
-        typeStyle = registerStyle(modelPane, "type", new Color(40, 150, 40), false);
-        constraintStyle = registerStyle(modelPane, "constraint", Color.RED, false);
         formStyle = registerStyle(modelPane, "form", Color.BLUE, true);
         tableStyle = registerStyle(modelPane, "table", new Color(40, 150, 40), true);
 
@@ -136,10 +123,10 @@ public class PrintProviderImpl implements PrintProvider {
                             for (Object reference : references) {
                                 Object from = entityClass.getMethod("getName").invoke(methodFrom.invoke(reference));
                                 Object to = entityClass.getMethod("getName").invoke(methodTo.invoke(reference));
-                                printTextToModel("\n    reference from ", textStyle);
-                                printTextToModel(from.toString(), entityStyle);
-                                printTextToModel(" to ", textStyle);
-                                printTextToModel(to.toString(), entityStyle);
+                                printTextToModel("\n    reference from ", keywordStyle);
+                                printTextToModel(from.toString(), textStyle);
+                                printTextToModel(" to ", keywordStyle);
+                                printTextToModel(to.toString(), textStyle);
                             }
                         }
                     } catch (NoSuchMethodException ex) {

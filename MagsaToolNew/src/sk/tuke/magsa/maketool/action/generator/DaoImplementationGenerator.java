@@ -1,8 +1,10 @@
 package sk.tuke.magsa.maketool.action.generator;
 
+import ak.tuke.task.annotation.Task;
 import sk.tuke.magsa.maketool.core.MagsaConfig;
 import sk.tuke.magsa.maketool.action.MagsaAction;
 
+@Task(module = "03")
 public class DaoImplementationGenerator extends MagsaAction {
     @Override
     public void execute() throws Exception {

@@ -1,11 +1,13 @@
 package sk.tuke.magsa.maketool.action.processor;
 
+import ak.tuke.task.annotation.Task;
 import java.io.File;
 import java.io.FileReader;
 import java.io.Reader;
 import sk.tuke.magsa.maketool.core.MagsaConfig;
 import sk.tuke.magsa.maketool.action.MagsaAction;
 
+@Task(module = "11")
 public class UIProcessor extends MagsaAction {
     @Override
     public void execute() throws Exception {
@@ -23,14 +25,14 @@ public class UIProcessor extends MagsaAction {
         // navrat zmeny
         System.setProperty("user.dir", tempSP);
     }
-    
+
     @Override
     public String describe() {
         StringBuilder sb = new StringBuilder();
-        
+
         sb.append("UIProcessor uiProcessor = new UIProcessor(new FileReader(\"").append(MagsaConfig.getInstance().getUiFile()).append("\"))\n");
         sb.append("uiProcessor.compose(model);\n");
-        
+
         return sb.toString();
     }
 }
