@@ -9,6 +9,7 @@ import sk.tuke.magsa.maketool.action.MagsaContext;
 
 public class ActionWrapper extends MagsaAction {
     private static final String WEB_CVICENIA = "http://hornad.fei.tuke.sk/~poruban/magsa/%s.html#%s";
+    private static final String LINK_WEB_CVICENIA = "<a href='%s'>%s</a>";
 
     private final Action action;
 
@@ -52,7 +53,8 @@ public class ActionWrapper extends MagsaAction {
             if ("".equals(id)) {
                 id = action.getClass().getSimpleName();
             }
-            String webLink = String.format(WEB_CVICENIA, taskAnnotation.module(), id);
+            String web = String.format(WEB_CVICENIA, taskAnnotation.module(), id);
+            String webLink = String.format(LINK_WEB_CVICENIA, web, web);
             printProvider.printInfo(String.format("Pozrite si opis úlohy na %s\n", webLink));
         }
     }
