@@ -6,8 +6,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import sk.tuke.magsa.maketool.core.MagsaConfig;
 import sk.tuke.magsa.maketool.PrintProvider;
+import sk.tuke.magsa.maketool.core.MagsaConfig;
 import sk.tuke.magsa.maketool.core.Project;
 import sk.tuke.magsa.maketool.task.AbstractTaskPanel;
 
@@ -34,7 +34,7 @@ public class MainFrame extends javax.swing.JFrame {
         modelFileTextField.setText(MagsaConfig.getInstance().getModelFile());
         uiFileTextField.setText(MagsaConfig.getInstance().getUiFile());
 
-        printProvider = new PrintProviderImpl(modelPane, consolePane);
+        printProvider = new HTMLPrintProviderImpl(modelPane, consolePane);
 
         configure(printProvider);
     }
@@ -171,13 +171,13 @@ public class MainFrame extends javax.swing.JFrame {
         task8 = new sk.tuke.magsa.maketool.task.Task8();
         jSplitPane1 = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        consolePane = new javax.swing.JTextPane();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        consolePane = new javax.swing.JEditorPane();
         jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        modelPane = new javax.swing.JTextPane();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        modelPane = new javax.swing.JEditorPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         nacitatMenu = new javax.swing.JMenuItem();
@@ -313,10 +313,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         jSplitPane1.setDividerLocation(500);
 
-        consolePane.setEditable(false);
-        jScrollPane2.setViewportView(consolePane);
-
         jLabel1.setText("Konzola");
+
+        jScrollPane3.setViewportView(consolePane);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -325,10 +324,10 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 512, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -337,16 +336,15 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jSplitPane1.setRightComponent(jPanel1);
 
-        modelPane.setEditable(false);
-        jScrollPane1.setViewportView(modelPane);
-
         jLabel2.setText("Aktuálna reprezentácia modelu");
+
+        jScrollPane1.setViewportView(modelPane);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -357,8 +355,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(0, 331, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -367,7 +365,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -484,7 +482,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel centerPanel;
-    private javax.swing.JTextPane consolePane;
+    private javax.swing.JEditorPane consolePane;
     private javax.swing.JTextField constraintClassTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -498,13 +496,13 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JMenuItem materialyMenu;
     private javax.swing.JTextField modelDirTextField;
     private javax.swing.JTextField modelFileTextField;
-    private javax.swing.JTextPane modelPane;
+    private javax.swing.JEditorPane modelPane;
     private javax.swing.JMenuItem nacitatMenu;
     private javax.swing.JMenuItem oProgrameMenu;
     private javax.swing.JPanel panel1;
