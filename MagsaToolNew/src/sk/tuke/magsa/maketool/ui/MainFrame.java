@@ -1,7 +1,9 @@
 package sk.tuke.magsa.maketool.ui;
 
 import java.awt.Cursor;
+import java.awt.Desktop;
 import java.io.File;
+import java.net.URI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -12,6 +14,7 @@ import sk.tuke.magsa.maketool.core.Project;
 import sk.tuke.magsa.maketool.task.AbstractTaskPanel;
 
 public class MainFrame extends javax.swing.JFrame {
+
     private final Project project = new Project();
 
     private final PrintProvider printProvider;
@@ -69,16 +72,16 @@ public class MainFrame extends javax.swing.JFrame {
             File currentDirectory = new File(System.getProperty("user.dir") + "/..");
 
             try {
-            if (!currentDirectory.getCanonicalPath().endsWith("magsa")) {
-                JFileChooser chooser = new JFileChooser();
-                chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                chooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
-                if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-                    currentDirectory = chooser.getSelectedFile();
-                } else {
-                    return;
+                if (!Project.isNetbeansMagsaProject(currentDirectory)) {
+                    JFileChooser chooser = new JFileChooser();
+                    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                    chooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+                    if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+                        currentDirectory = chooser.getSelectedFile();
+                    } else {
+                        return;
+                    }
                 }
-            }
 
                 String path = currentDirectory.getCanonicalPath();
 
@@ -473,7 +476,14 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void materialyMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialyMenuActionPerformed
-
+        Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+        if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+            try {
+                desktop.browse(URI.create("http://it4kt.cnl.tuke.sk/c/magsa/student/info.html"));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }//GEN-LAST:event_materialyMenuActionPerformed
 
     private void oProgrameMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oProgrameMenuActionPerformed

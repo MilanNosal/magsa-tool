@@ -1,9 +1,17 @@
 package sk.tuke.magsa.maketool.core;
 
 import java.io.File;
+import java.io.IOException;
 import org.apache.tools.ant.ProjectHelper;
 
 public class Project {
+    
+    public static boolean isNetbeansMagsaProject(File dir) throws IOException {
+        File buildFile = new File(dir, "nbproject/build-impl.xml");
+        
+        return buildFile.exists();
+    }
+    
     public void openProject(String path) throws Exception {
         MagsaConfig.getInstance().setProjectPath(path);
 
