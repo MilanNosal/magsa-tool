@@ -8,10 +8,9 @@ import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.swing.JEditorPane;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
@@ -132,18 +131,35 @@ public class HTMLPrintProviderImpl implements PrintProvider {
                         Method methodFrom = referenceClass.getMethod("getFrom");
                         Method methodTo = referenceClass.getMethod("getTo");
                         Method method = entityClass.getMethod("getOutgoingReferences");
-                        Object references[] = (Object[]) method.invoke(entity);
-                        if (references != null) {
-                            if (references.length > 0) {
-                                printTextToModel("\n", OutputStyle.TEXT);
+                        try {
+                            Object references[] = (Object[]) method.invoke(entity);
+                            if (references != null) {
+                                if (references.length > 0) {
+                                    printTextToModel("\n", OutputStyle.TEXT);
+                                }
+                                for (Object reference : references) {
+                                    Object from = entityClass.getMethod("getName").invoke(methodFrom.invoke(reference));
+                                    Object to = entityClass.getMethod("getName").invoke(methodTo.invoke(reference));
+                                    printTextToModel("\n    reference from ", OutputStyle.KEYWORD);
+                                    printTextToModel(from.toString(), OutputStyle.TEXT);
+                                    printTextToModel(" to ", OutputStyle.KEYWORD);
+                                    printTextToModel(to.toString(), OutputStyle.TEXT);
+                                }
                             }
-                            for (Object reference : references) {
-                                Object from = entityClass.getMethod("getName").invoke(methodFrom.invoke(reference));
-                                Object to = entityClass.getMethod("getName").invoke(methodTo.invoke(reference));
-                                printTextToModel("\n    reference from ", OutputStyle.KEYWORD);
-                                printTextToModel(from.toString(), OutputStyle.TEXT);
-                                printTextToModel(" to ", OutputStyle.KEYWORD);
-                                printTextToModel(to.toString(), OutputStyle.TEXT);
+                        } catch (ClassCastException casting) { // In case that outgoing referencesare implented as 
+                            List references = (List) method.invoke(entity);
+                            if (references != null) {
+                                if (references.size() > 0) {
+                                    printTextToModel("\n", OutputStyle.TEXT);
+                                }
+                                for (Object reference : references) {
+                                    Object from = entityClass.getMethod("getName").invoke(methodFrom.invoke(reference));
+                                    Object to = entityClass.getMethod("getName").invoke(methodTo.invoke(reference));
+                                    printTextToModel("\n    reference from ", OutputStyle.KEYWORD);
+                                    printTextToModel(from.toString(), OutputStyle.TEXT);
+                                    printTextToModel(" to ", OutputStyle.KEYWORD);
+                                    printTextToModel(to.toString(), OutputStyle.TEXT);
+                                }
                             }
                         }
                     } catch (NoSuchMethodException ex) {
