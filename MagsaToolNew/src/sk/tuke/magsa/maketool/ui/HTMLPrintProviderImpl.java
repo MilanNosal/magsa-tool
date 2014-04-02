@@ -9,6 +9,7 @@ import java.io.PipedOutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JEditorPane;
@@ -46,8 +47,8 @@ public class HTMLPrintProviderImpl implements PrintProvider {
     //private final Pattern url = Pattern.compile("^http\\://[a-zA-Z0-9\\-\\.]+\\.[a-zA-Z]{2,3}(/\\S*)?$");
     private final JEditorPane modelPane;
     private final JEditorPane consolePane;
-    private StringBuilder model = new StringBuilder("");
-    private StringBuilder console = new StringBuilder("");
+    private StringBuilder model = new StringBuilder();
+    private StringBuilder console = new StringBuilder();
 
     public HTMLPrintProviderImpl(JEditorPane modelPane, JEditorPane consolePane) {
         this.modelPane = modelPane;
@@ -81,9 +82,9 @@ public class HTMLPrintProviderImpl implements PrintProvider {
     @Override
     public synchronized void reset() {
         modelPane.setText("");
-        model = new StringBuilder("");
+        model = new StringBuilder();
         consolePane.setText("");
-        console = new StringBuilder("");
+        console = new StringBuilder();
     }
 
     @Override
@@ -91,7 +92,7 @@ public class HTMLPrintProviderImpl implements PrintProvider {
         if (model != null) {
             try {
                 //Vytlaci zoznam entit
-                printTextToModel("# ---------- Zoznam entít ----------", OutputStyle.COMMENT);
+                printTextToModel(ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle").getString("ENTITY_LIST"), OutputStyle.COMMENT);
                 Class modelClass = MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.metamodel.Model");
                 Class entityClass = MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.metamodel.Entity");
                 Class propertyClass = MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.metamodel.Property");
@@ -175,8 +176,8 @@ public class HTMLPrintProviderImpl implements PrintProvider {
                 try {
                     Class uiClass = MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.metamodel.ui.UI");
                     Object ui = modelClass.getMethod("getUi").invoke(model);
-                    if (ui != null) {
-                        printTextToModel("\n# ---------- Používateľské rozhranie ----------", OutputStyle.COMMENT);
+                    if (ui != null) {                        
+                        printTextToModel("\n" + ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle").getString("USER_INTERFACE"), OutputStyle.COMMENT);
                         Object tables[] = (Object[]) uiClass.getMethod("getTables").invoke(ui);
                         if (tables != null) {
                             for (Object table : tables) {

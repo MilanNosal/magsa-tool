@@ -1,5 +1,6 @@
 package sk.tuke.magsa.maketool;
 
+import java.util.Locale;
 import javax.swing.UIManager;
 import sk.tuke.magsa.maketool.ui.MainFrame;
 
@@ -14,6 +15,8 @@ public class Main {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                Locale.setDefault(Locale.ENGLISH);
+                //Locale.setDefault(new Locale("sk"));
                 new MainFrame().setVisible(true);
             }
         });

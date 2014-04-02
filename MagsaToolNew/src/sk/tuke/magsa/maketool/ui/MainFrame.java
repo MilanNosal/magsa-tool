@@ -92,10 +92,10 @@ public class MainFrame extends javax.swing.JFrame {
                 reset();
                 init();
 
-                printProvider.printInfo("Projekt bol úspešne načítaný z adresára " + path + ".\n");
+                printProvider.printInfo(java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle").getString("PROJEKT_USPESNE_NACITANY"), new Object[] {path}));
             } catch (Exception ex) {
-                printProvider.printError("Chyba: " + ex.getMessage());
-                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, "Error opening project", ex);
+                printProvider.printError(java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle").getString("CHYBA"), new Object[] {ex.getMessage()}));
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, java.util.ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle").getString("ERROR_OPENING_PROJECT"), ex);
             }
         } finally {
             setCursor(oldCursor);
@@ -117,10 +117,10 @@ public class MainFrame extends javax.swing.JFrame {
                 reset();
                 init();
 
-                printProvider.printInfo("Projekt bol úspešne obnovený z adresára " + path + ".\n");
+                printProvider.printInfo(java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle").getString("PROJEKT_BOL_USPESNE_OBNOVENY"), new Object[] {path}));
             } catch (Exception ex) {
-                printProvider.printError("Chyba: " + ex.getMessage());
-                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, "Error refreshing project", ex);
+                printProvider.printError(java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle").getString("CHYBA"), new Object[] {ex.getMessage()}));
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, java.util.ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle").getString("ERROR_REFRESHING_PROJECT"), ex);
             }
         } finally {
             setCursor(oldCursor);
@@ -191,7 +191,8 @@ public class MainFrame extends javax.swing.JFrame {
         oProgrameMenu = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("MagsaTool");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle"); // NOI18N
+        setTitle(bundle.getString("MAGSATOOL")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -200,7 +201,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         topPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        jLabel6.setText("Rel. cesta k priečinku model:");
+        jLabel6.setText(bundle.getString("REL_CESTA_K_PRIECINKU_MODELU")); // NOI18N
         topPanel.add(jLabel6);
 
         modelDirTextField.setColumns(17);
@@ -211,7 +212,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
         topPanel.add(modelDirTextField);
 
-        jLabel5.setText("Trieda s def. interného DSL:");
+        jLabel5.setText(bundle.getString("TRIEDA_S_DEF_INTERNEHO_DSL")); // NOI18N
         topPanel.add(jLabel5);
 
         constraintClassTextField.setColumns(17);
@@ -222,7 +223,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
         topPanel.add(constraintClassTextField);
 
-        jLabel3.setText("Rel. cesta k model.el:");
+        jLabel3.setText(bundle.getString("REL_CESTA_K_MODEL_EL")); // NOI18N
         topPanel.add(jLabel3);
 
         modelFileTextField.setColumns(17);
@@ -233,7 +234,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
         topPanel.add(modelFileTextField);
 
-        jLabel4.setText("Rel. cesta k ui.xml:");
+        jLabel4.setText(bundle.getString("REL_CESTA_K_UI")); // NOI18N
         topPanel.add(jLabel4);
 
         uiFileTextField.setColumns(17);
@@ -261,62 +262,62 @@ public class MainFrame extends javax.swing.JFrame {
 
         scrollPane1.setViewportView(panel1);
 
-        tasksTab.addTab("Cvičenie 2 (úloha 1)", scrollPane1);
+        tasksTab.addTab(bundle.getString("TASK1"), scrollPane1); // NOI18N
 
         panel2.setLayout(new java.awt.GridBagLayout());
         panel2.add(task2, new java.awt.GridBagConstraints());
 
         scrollPane2.setViewportView(panel2);
 
-        tasksTab.addTab("Cvičenie 3 (úloha 2)", scrollPane2);
+        tasksTab.addTab(bundle.getString("TASK2"), scrollPane2); // NOI18N
 
         panel3.setLayout(new java.awt.GridBagLayout());
         panel3.add(task3, new java.awt.GridBagConstraints());
 
         scrollPane3.setViewportView(panel3);
 
-        tasksTab.addTab("Cvičenie 5 (úloha 3)", scrollPane3);
+        tasksTab.addTab(bundle.getString("TASK3"), scrollPane3); // NOI18N
 
         panel4.setLayout(new java.awt.GridBagLayout());
         panel4.add(task4, new java.awt.GridBagConstraints());
 
         scrollPane4.setViewportView(panel4);
 
-        tasksTab.addTab("Cvičenie 6 (úloha 4)", scrollPane4);
+        tasksTab.addTab(bundle.getString("TASK4"), scrollPane4); // NOI18N
 
         panel5.setLayout(new java.awt.GridBagLayout());
         panel5.add(task5, new java.awt.GridBagConstraints());
 
         scrollPane5.setViewportView(panel5);
 
-        tasksTab.addTab("Cvičenie 8 (úloha 5)", scrollPane5);
+        tasksTab.addTab(bundle.getString("TASK5"), scrollPane5); // NOI18N
 
         panel6.setLayout(new java.awt.GridBagLayout());
         panel6.add(task6, new java.awt.GridBagConstraints());
 
         scrollPane6.setViewportView(panel6);
 
-        tasksTab.addTab("Cvičenie 9 (úloha 6)", scrollPane6);
+        tasksTab.addTab(bundle.getString("TASK6"), scrollPane6); // NOI18N
 
         panel7.setLayout(new java.awt.GridBagLayout());
         panel7.add(task7, new java.awt.GridBagConstraints());
 
         scrollPane7.setViewportView(panel7);
 
-        tasksTab.addTab("Cvičenie 11 (úloha 7)", scrollPane7);
+        tasksTab.addTab(bundle.getString("TASK7"), scrollPane7); // NOI18N
 
         panel8.setLayout(new java.awt.GridBagLayout());
         panel8.add(task8, new java.awt.GridBagConstraints());
 
         scrollPane8.setViewportView(panel8);
 
-        tasksTab.addTab("Cvičenie 12 (úloha 8)", scrollPane8);
+        tasksTab.addTab(bundle.getString("TASK8"), scrollPane8); // NOI18N
 
         jSplitPane2.setLeftComponent(tasksTab);
 
         jSplitPane1.setDividerLocation(500);
 
-        jLabel1.setText("Konzola");
+        jLabel1.setText(bundle.getString("KONZOLA")); // NOI18N
 
         jScrollPane3.setViewportView(consolePane);
 
@@ -339,13 +340,13 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jSplitPane1.setRightComponent(jPanel1);
 
-        jLabel2.setText("Aktuálna reprezentácia modelu");
+        jLabel2.setText(bundle.getString("REPREZENTACIA_MODELU")); // NOI18N
 
         jScrollPane1.setViewportView(modelPane);
 
@@ -368,7 +369,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -380,10 +381,10 @@ public class MainFrame extends javax.swing.JFrame {
 
         getContentPane().add(centerPanel, java.awt.BorderLayout.CENTER);
 
-        jMenu1.setText("Projekt");
+        jMenu1.setText(bundle.getString("PROJEKT")); // NOI18N
 
         nacitatMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
-        nacitatMenu.setText("Načítať projekt");
+        nacitatMenu.setText(bundle.getString("NACITAT_PROJEKT")); // NOI18N
         nacitatMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nacitatMenuActionPerformed(evt);
@@ -392,7 +393,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu1.add(nacitatMenu);
 
         restartujMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
-        restartujMenu.setText("Reštartovať projekt");
+        restartujMenu.setText(bundle.getString("RESTARTOVAT_PROJEKT")); // NOI18N
         restartujMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 restartujMenuActionPerformed(evt);
@@ -401,7 +402,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu1.add(restartujMenu);
 
         zavrietMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
-        zavrietMenu.setText("Ukončíť");
+        zavrietMenu.setText(bundle.getString("UKONCIT")); // NOI18N
         zavrietMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 zavrietMenuActionPerformed(evt);
@@ -411,9 +412,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Pomoc");
+        jMenu2.setText(bundle.getString("POMOC")); // NOI18N
 
-        materialyMenu.setText("Materiály");
+        materialyMenu.setText(bundle.getString("MATERIALY")); // NOI18N
         materialyMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 materialyMenuActionPerformed(evt);
@@ -421,7 +422,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jMenu2.add(materialyMenu);
 
-        oProgrameMenu.setText("O programe");
+        oProgrameMenu.setText(bundle.getString("O_PROGRAME")); // NOI18N
         oProgrameMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 oProgrameMenuActionPerformed(evt);

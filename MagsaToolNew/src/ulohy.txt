@@ -2,6 +2,7 @@ Planovane ulohy (pridavat podla priority):
 // - Zabezpecit jasne navigovanie na chyby v konzole - napr. aj na ulohu v zadani - linka na web
 - Upravit PrintProviderImpl aby nepouzival na vypisovanie toString - zamysliet sa nad nejkym vseobecnejsim riesenim - zjednodusit celkovo triedu PrintProviderImpl, mozno aj vynat konzolu - je to ConsoleRedirect
 - Okomentovat aplikaciu - aspon rozhrania a ich metody, triedy a verejne metody tried
+- Vytvorit nove projekty pre MAGSA, dodat tam aj pouzitie a automaticke stahovanie magsatool v build cez get
 - Prezriet vsetky text aby boli po slovensky
 - Skusit spravit automaticku detekciu liniek, to nie je take podstatne, ale treba opravit tie linky lebo aktualne to neotvara (id-cka a tak)
 
