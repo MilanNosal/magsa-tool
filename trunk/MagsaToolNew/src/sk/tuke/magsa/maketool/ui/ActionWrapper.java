@@ -1,6 +1,8 @@
 package sk.tuke.magsa.maketool.ui;
 
 import ak.tuke.task.annotation.Task;
+import java.text.MessageFormat;
+import java.util.ResourceBundle;
 import sk.tuke.magsa.maketool.Action;
 import sk.tuke.magsa.maketool.Context;
 import sk.tuke.magsa.maketool.PrintProvider;
@@ -31,7 +33,7 @@ public class ActionWrapper extends MagsaAction {
     public void execute() throws Exception {
         try {
             printProvider.reset();
-            printProvider.printInfo("Vykonaný kód:\n");
+            printProvider.printInfo(ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle").getString("VYKONANY_KOD") + "\n");
             printProvider.printCode(describe());
             action.setContext(context);
             action.execute();
@@ -40,7 +42,7 @@ public class ActionWrapper extends MagsaAction {
             }
         } catch (Exception ex) {
             //TODO: lepsie spracovanie chyby
-            printProvider.printError("Chyba: " + ex.getMessage() + ".\n");
+            printProvider.printError(MessageFormat.format(ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle").getString("CHYBA"), ex.getMessage()) + "\n");
             printTaskWebLink();
             throw ex;
         }
@@ -55,7 +57,7 @@ public class ActionWrapper extends MagsaAction {
             }
             String web = String.format(WEB_CVICENIA, taskAnnotation.module(), id);
             String webLink = String.format(LINK_WEB_CVICENIA, web, web);
-            printProvider.printInfo(String.format("Pozrite si opis úlohy na %s\n", webLink));
+            printProvider.printInfo(MessageFormat.format(ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle").getString("POZRITE_OPIS_ULOHY"), webLink));
         }
     }
 
