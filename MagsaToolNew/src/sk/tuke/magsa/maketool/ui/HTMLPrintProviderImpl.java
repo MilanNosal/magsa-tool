@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JEditorPane;
+import javax.swing.SwingUtilities;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import sk.tuke.magsa.maketool.PrintProvider;
@@ -47,8 +48,8 @@ public class HTMLPrintProviderImpl implements PrintProvider {
     //private final Pattern url = Pattern.compile("^http\\://[a-zA-Z0-9\\-\\.]+\\.[a-zA-Z]{2,3}(/\\S*)?$");
     private final JEditorPane modelPane;
     private final JEditorPane consolePane;
-    private StringBuilder model = new StringBuilder();
-    private StringBuilder console = new StringBuilder();
+    private StringBuilder model = new StringBuilder("");
+    private StringBuilder console = new StringBuilder("");
 
     public HTMLPrintProviderImpl(JEditorPane modelPane, JEditorPane consolePane) {
         this.modelPane = modelPane;
@@ -82,9 +83,9 @@ public class HTMLPrintProviderImpl implements PrintProvider {
     @Override
     public synchronized void reset() {
         modelPane.setText("");
-        model = new StringBuilder();
+        model = new StringBuilder("");
         consolePane.setText("");
-        console = new StringBuilder();
+        console = new StringBuilder("");
     }
 
     @Override
@@ -176,7 +177,7 @@ public class HTMLPrintProviderImpl implements PrintProvider {
                 try {
                     Class uiClass = MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.metamodel.ui.UI");
                     Object ui = modelClass.getMethod("getUi").invoke(model);
-                    if (ui != null) {                        
+                    if (ui != null) {
                         printTextToModel("\n" + ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle").getString("USER_INTERFACE"), OutputStyle.COMMENT);
                         Object tables[] = (Object[]) uiClass.getMethod("getTables").invoke(ui);
                         if (tables != null) {
@@ -222,8 +223,16 @@ public class HTMLPrintProviderImpl implements PrintProvider {
                 .replace(" ", SPACE)
                 .replace("\n", LINEBREAK);
         this.console.append(parsedText);
-        this.consolePane.setText(DOCUMENT.replace("?", this.console.toString()));
+        final String output = DOCUMENT.replace("?", this.console.toString());
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                consolePane.setText(output);
+            }
+        });
     }
+
     private synchronized void printTextToModel(String text, OutputStyle style) {
         String parsedText = style.styleTemplate
                 .replace("?", text)
@@ -231,7 +240,13 @@ public class HTMLPrintProviderImpl implements PrintProvider {
                 .replace(" ", SPACE)
                 .replace("\n", LINEBREAK);
         this.model.append(parsedText);
-        this.modelPane.setText(DOCUMENT.replace("?", this.model.toString()));
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                modelPane.setText(DOCUMENT.replace("?", model.toString()));
+            }
+        });
     }
 
     private void redirect() {
@@ -271,7 +286,8 @@ public class HTMLPrintProviderImpl implements PrintProvider {
         public synchronized void run() {
             while (true) {
                 try {
-                    printTextToConsole(reader.readLine() + "\n", style);
+                    String line = reader.readLine();
+                    printTextToConsole(line + "\n", style);
                 } catch (Exception e) {
                     printError("Console reports an internal error.\nThe error is: " + e);
                 }
