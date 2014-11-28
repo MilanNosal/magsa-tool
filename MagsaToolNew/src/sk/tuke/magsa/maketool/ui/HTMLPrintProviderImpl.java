@@ -6,7 +6,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
-import java.io.PrintStream;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -41,15 +41,23 @@ public class HTMLPrintProviderImpl implements PrintProvider {
             return styleTemplate;
         }
     }
-    private final String LINEBREAK = "<br/>";
-    private final String TAB = "&nbsp;&nbsp;&nbsp;&nbsp;";
-    private final String SPACE = "&nbsp;";
-    private final String DOCUMENT = "<html><body style='font-family:" + Font.DIALOG_INPUT + ";font-size:12pt;'>?</body></html>";
+
+    private static final String MODEL_CLASS = "sk.tuke.magsa.tools.metamodel.Model";
+    private static final String ENTITY_CLASS = "sk.tuke.magsa.tools.metamodel.Entity";
+    private static final String PROPERTY_CLASS = "sk.tuke.magsa.tools.metamodel.Property";
+    private static final String REFERENCE_CLASS = "sk.tuke.magsa.tools.metamodel.Reference";
+    private static final String UI_CLASS = "sk.tuke.magsa.tools.metamodel.ui.UI";
+
+    private static final String LINEBREAK = "<br/>";
+    private static final String TAB = "&nbsp;&nbsp;&nbsp;&nbsp;";
+    private static final String SPACE = "&nbsp;";
+    private static final String DOCUMENT = "<html><body style='font-family:" + Font.DIALOG_INPUT + ";font-size:12pt;'>?</body></html>";
     //private final Pattern url = Pattern.compile("^http\\://[a-zA-Z0-9\\-\\.]+\\.[a-zA-Z]{2,3}(/\\S*)?$");
+
     private final JEditorPane modelPane;
     private final JEditorPane consolePane;
-    private StringBuilder model = new StringBuilder("");
-    private StringBuilder console = new StringBuilder("");
+    private StringBuilder model = new StringBuilder();
+    private StringBuilder console = new StringBuilder();
 
     public HTMLPrintProviderImpl(JEditorPane modelPane, JEditorPane consolePane) {
         this.modelPane = modelPane;
@@ -83,121 +91,129 @@ public class HTMLPrintProviderImpl implements PrintProvider {
     @Override
     public synchronized void reset() {
         modelPane.setText("");
-        model = new StringBuilder("");
+        model = new StringBuilder();
         consolePane.setText("");
-        console = new StringBuilder("");
+        console = new StringBuilder();
     }
 
     @Override
     public void printModel(Object model) {
         if (model != null) {
             try {
-                //Vytlaci zoznam entit
-                printTextToModel(ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle").getString("ENTITY_LIST"), OutputStyle.COMMENT);
-                Class modelClass = MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.metamodel.Model");
-                Class entityClass = MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.metamodel.Entity");
-                Class propertyClass = MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.metamodel.Property");
-
-                Object entities[] = (Object[]) modelClass.getMethod("getEntities").invoke(model);
-                for (Object entity : entities) {
-                    printTextToModel("\nentity ", OutputStyle.KEYWORD);
-                    printTextToModel(entityClass.getMethod("getName").invoke(entity) + " {", OutputStyle.TEXT);
-
-                    Object properties[] = (Object[]) entityClass.getMethod("getProperties").invoke(entity);
-                    for (Object property : properties) {
-                        printTextToModel("\n    " + propertyClass.getMethod("getName").invoke(property) + " : ", OutputStyle.TEXT);
-                        printTextToModel(propertyClass.getMethod("getType").invoke(property).toString().toLowerCase(), OutputStyle.KEYWORD);
-
-                        try {
-                            Method method = propertyClass.getMethod("getConstraints");
-                            Object constraints[] = (Object[]) method.invoke(property);
-                            if (constraints != null) {
-                                printTextToModel(" ", OutputStyle.TEXT);
-                                boolean first = true;
-                                for (Object constraint : constraints) {
-                                    if (first != true) {
-                                        printTextToModel(", ", OutputStyle.TEXT);
-                                    } else {
-                                        first = false;
-                                    }
-                                    printTextToModel(constraint.toString(), OutputStyle.KEYWORD);
-                                }
-                            }
-                        } catch (NoSuchMethodException ex) {
-                            //Ked nie je metoda nic sa nevypise
-                        }
-                    }
-
-                    try {
-                        Class referenceClass = MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.metamodel.Reference");
-                        Method methodFrom = referenceClass.getMethod("getFrom");
-                        Method methodTo = referenceClass.getMethod("getTo");
-                        Method method = entityClass.getMethod("getOutgoingReferences");
-                        try {
-                            Object references[] = (Object[]) method.invoke(entity);
-                            if (references != null) {
-                                if (references.length > 0) {
-                                    printTextToModel("\n", OutputStyle.TEXT);
-                                }
-                                for (Object reference : references) {
-                                    Object from = entityClass.getMethod("getName").invoke(methodFrom.invoke(reference));
-                                    Object to = entityClass.getMethod("getName").invoke(methodTo.invoke(reference));
-                                    printTextToModel("\n    reference from ", OutputStyle.KEYWORD);
-                                    printTextToModel(from.toString(), OutputStyle.TEXT);
-                                    printTextToModel(" to ", OutputStyle.KEYWORD);
-                                    printTextToModel(to.toString(), OutputStyle.TEXT);
-                                }
-                            }
-                        } catch (ClassCastException casting) { // In case that outgoing referencesare implented as 
-                            List references = (List) method.invoke(entity);
-                            if (references != null) {
-                                if (references.size() > 0) {
-                                    printTextToModel("\n", OutputStyle.TEXT);
-                                }
-                                for (Object reference : references) {
-                                    Object from = entityClass.getMethod("getName").invoke(methodFrom.invoke(reference));
-                                    Object to = entityClass.getMethod("getName").invoke(methodTo.invoke(reference));
-                                    printTextToModel("\n    reference from ", OutputStyle.KEYWORD);
-                                    printTextToModel(from.toString(), OutputStyle.TEXT);
-                                    printTextToModel(" to ", OutputStyle.KEYWORD);
-                                    printTextToModel(to.toString(), OutputStyle.TEXT);
-                                }
-                            }
-                        }
-                    } catch (NoSuchMethodException ex) {
-                        //Ked nie je metoda nic sa nevypise
-                    } catch (ClassNotFoundException ex) {
-                        //Ked nie je metoda nic sa nevypise
-                    }
-                    printTextToModel("\n}\n", OutputStyle.TEXT);
-                }
+                printEntitiesFromModel(model);
 
                 //Vytlaci pouzivatelske rozhranie
                 //TODO : dorobit lepsie prejdenie tabuliek a formularov
-                try {
-                    Class uiClass = MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.metamodel.ui.UI");
-                    Object ui = modelClass.getMethod("getUi").invoke(model);
-                    if (ui != null) {
-                        printTextToModel("\n" + ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle").getString("USER_INTERFACE"), OutputStyle.COMMENT);
-                        Object tables[] = (Object[]) uiClass.getMethod("getTables").invoke(ui);
-                        if (tables != null) {
-                            for (Object table : tables) {
-                                printTextToModel("\n" + table.toString(), OutputStyle.TABLE);
-                            }
-                        }
-                        Object forms[] = (Object[]) uiClass.getMethod("getForms").invoke(ui);
-                        if (tables != null) {
-                            for (Object form : forms) {
-                                printTextToModel("\n" + form.toString(), OutputStyle.FORM);
-                            }
-                        }
-                    }
-                } catch (ClassNotFoundException e) {
-                    //ok
-                }
+                printUIFromModel(model);
             } catch (Exception ex) {
                 Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+    }
+
+    private void printEntitiesFromModel(Object model) throws IllegalAccessException, InvocationTargetException, IllegalArgumentException, NoSuchMethodException, SecurityException, Exception {
+        //Vytlaci zoznam entit
+        printTextToModel(ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle").getString("ENTITY_LIST"), OutputStyle.COMMENT);
+        Class modelClass = MagsaConfig.getInstance().loadClass(MODEL_CLASS);
+        Class entityClass = MagsaConfig.getInstance().loadClass(ENTITY_CLASS);
+        Class propertyClass = MagsaConfig.getInstance().loadClass(PROPERTY_CLASS);
+        Object[] entities = (Object[]) modelClass.getMethod("getEntities").invoke(model);
+        for (Object entity : entities) {
+            printTextToModel("\nentity ", OutputStyle.KEYWORD);
+            printTextToModel(entityClass.getMethod("getName").invoke(entity) + " {", OutputStyle.TEXT);
+
+            Object properties[] = (Object[]) entityClass.getMethod("getProperties").invoke(entity);
+            for (Object property : properties) {
+                printTextToModel("\n    " + propertyClass.getMethod("getName").invoke(property) + " : ", OutputStyle.TEXT);
+                printTextToModel(propertyClass.getMethod("getType").invoke(property).toString().toLowerCase(), OutputStyle.KEYWORD);
+
+                try {
+                    Method method = propertyClass.getMethod("getConstraints");
+                    Object constraints[] = (Object[]) method.invoke(property);
+                    if (constraints != null) {
+                        printTextToModel(" ", OutputStyle.TEXT);
+                        boolean first = true;
+                        for (Object constraint : constraints) {
+                            if (first != true) {
+                                printTextToModel(", ", OutputStyle.TEXT);
+                            } else {
+                                first = false;
+                            }
+                            printTextToModel(constraint.toString(), OutputStyle.KEYWORD);
+                        }
+                    }
+                } catch (NoSuchMethodException ex) {
+                    //Ked nie je metoda nic sa nevypise
+                }
+            }
+
+            try {
+                Class referenceClass = MagsaConfig.getInstance().loadClass(REFERENCE_CLASS);
+                Method methodFrom = referenceClass.getMethod("getFrom");
+                Method methodTo = referenceClass.getMethod("getTo");
+                Method method = entityClass.getMethod("getOutgoingReferences");
+                try {
+                    Object references[] = (Object[]) method.invoke(entity);
+                    if (references != null) {
+                        if (references.length > 0) {
+                            printTextToModel("\n", OutputStyle.TEXT);
+                        }
+                        for (Object reference : references) {
+                            Object from = entityClass.getMethod("getName").invoke(methodFrom.invoke(reference));
+                            Object to = entityClass.getMethod("getName").invoke(methodTo.invoke(reference));
+                            printTextToModel("\n    reference from ", OutputStyle.KEYWORD);
+                            printTextToModel(from.toString(), OutputStyle.TEXT);
+                            printTextToModel(" to ", OutputStyle.KEYWORD);
+                            printTextToModel(to.toString(), OutputStyle.TEXT);
+                        }
+                    }
+                } catch (ClassCastException casting) { // In case that outgoing referencesare implented as
+                    List references = (List) method.invoke(entity);
+                    if (references != null) {
+                        if (references.size() > 0) {
+                            printTextToModel("\n", OutputStyle.TEXT);
+                        }
+                        for (Object reference : references) {
+                            Object from = entityClass.getMethod("getName").invoke(methodFrom.invoke(reference));
+                            Object to = entityClass.getMethod("getName").invoke(methodTo.invoke(reference));
+                            printTextToModel("\n    reference from ", OutputStyle.KEYWORD);
+                            printTextToModel(from.toString(), OutputStyle.TEXT);
+                            printTextToModel(" to ", OutputStyle.KEYWORD);
+                            printTextToModel(to.toString(), OutputStyle.TEXT);
+                        }
+                    }
+                }
+            } catch (NoSuchMethodException ex) {
+                //Ked nie je metoda nic sa nevypise
+            } catch (ClassNotFoundException ex) {
+                //Ked nie je metoda nic sa nevypise
+            }
+            printTextToModel("\n}\n", OutputStyle.TEXT);
+        }
+    }
+
+    private void printUIFromModel(Object model) throws Exception {
+        try {
+            Class modelClass = MagsaConfig.getInstance().loadClass(MODEL_CLASS);
+            Class uiClass = MagsaConfig.getInstance().loadClass(UI_CLASS);
+            Object ui = modelClass.getMethod("getUi").invoke(model);
+            if (ui != null) {
+                printTextToModel("\n" + ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle").getString("USER_INTERFACE"), OutputStyle.COMMENT);
+                Object tables[] = (Object[]) uiClass.getMethod("getTables").invoke(ui);
+                if (tables != null) {
+                    for (Object table : tables) {
+                        printTextToModel("\n" + table.toString(), OutputStyle.TABLE);
+                    }
+                }
+                Object forms[] = (Object[]) uiClass.getMethod("getForms").invoke(ui);
+                if (tables != null) {
+                    for (Object form : forms) {
+                        printTextToModel("\n" + form.toString(), OutputStyle.FORM);
+                    }
+                }
+            }
+        } catch (ClassNotFoundException e) {
+            //ok
         }
     }
 
@@ -250,16 +266,16 @@ public class HTMLPrintProviderImpl implements PrintProvider {
     }
 
     private void redirect() {
-        PipedOutputStream output;
-        //output stream
-        output = new PipedOutputStream();
-        new StreamRedirector(output, OutputStyle.TEXT).start();
-        System.setOut(new PrintStream(output));
-
-        //error stream
-        output = new PipedOutputStream();
-        new StreamRedirector(output, OutputStyle.ERROR).start();
-        System.setErr(new PrintStream(output));
+//        PipedOutputStream output;
+//        //output stream
+//        output = new PipedOutputStream();
+//        new StreamRedirector(output, OutputStyle.TEXT).start();
+//        System.setOut(new PrintStream(output));
+//
+//        //error stream
+//        output = new PipedOutputStream();
+//        new StreamRedirector(output, OutputStyle.ERROR).start();
+//        System.setErr(new PrintStream(output));
     }
 
     /**
