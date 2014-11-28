@@ -1,14 +1,29 @@
 package sk.tuke.magsa.maketool.ui;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Desktop;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.Timer;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import sk.tuke.magsa.maketool.PrintProvider;
+import sk.tuke.magsa.maketool.component.ExecutableResourceComponent;
 import sk.tuke.magsa.maketool.core.MagsaConfig;
 import sk.tuke.magsa.maketool.core.Project;
 import sk.tuke.magsa.maketool.task.AbstractTaskPanel;
@@ -20,6 +35,10 @@ public class MainFrame extends javax.swing.JFrame {
     private final PrintProvider printProvider;
 
     private final AbstractTaskPanel[] tasks;
+
+    private int previuosSelectedTabIndex;
+
+    private MainGlassPane glassPane = new MainGlassPane();
 
     /**
      * Creates new form MainFrame
@@ -40,6 +59,17 @@ public class MainFrame extends javax.swing.JFrame {
         printProvider = new HTMLPrintProviderImpl(modelPane, consolePane);
 
         configure(printProvider);
+
+        tasksTab.addChangeListener(new ChangeListener() {
+
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                highlightInfoAfterTabChange();
+            }
+        });
+
+        //set glass pane
+        setGlassPane(glassPane);
     }
 
     private void configure(PrintProvider printProvider) {
@@ -92,9 +122,9 @@ public class MainFrame extends javax.swing.JFrame {
                 reset();
                 init();
 
-                printProvider.printInfo(java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle").getString("PROJEKT_USPESNE_NACITANY"), new Object[] {path}));
+                printProvider.printInfo(java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle").getString("PROJEKT_USPESNE_NACITANY"), new Object[]{path}));
             } catch (Exception ex) {
-                printProvider.printError(java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle").getString("CHYBA"), new Object[] {ex.getMessage()}));
+                printProvider.printError(java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle").getString("CHYBA"), new Object[]{ex.getMessage()}));
                 Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, java.util.ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle").getString("ERROR_OPENING_PROJECT"), ex);
             }
         } finally {
@@ -117,13 +147,34 @@ public class MainFrame extends javax.swing.JFrame {
                 reset();
                 init();
 
-                printProvider.printInfo(java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle").getString("PROJEKT_BOL_USPESNE_OBNOVENY"), new Object[] {path}));
+                printProvider.printInfo(java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle").getString("PROJEKT_BOL_USPESNE_OBNOVENY"), new Object[]{path}));
             } catch (Exception ex) {
-                printProvider.printError(java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle").getString("CHYBA"), new Object[] {ex.getMessage()}));
+                printProvider.printError(java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle").getString("CHYBA"), new Object[]{ex.getMessage()}));
                 Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, java.util.ResourceBundle.getBundle("sk/tuke/magsa/maketool/Bundle").getString("ERROR_REFRESHING_PROJECT"), ex);
             }
         } finally {
             setCursor(oldCursor);
+        }
+    }
+
+    private void highlightInfoAfterTabChange() {
+        int newSelectedTabIndex = tasksTab.getSelectedIndex();
+        if (newSelectedTabIndex != previuosSelectedTabIndex) {
+            AbstractTaskPanel oldPanel = tasks[previuosSelectedTabIndex];
+            AbstractTaskPanel newPanel = tasks[newSelectedTabIndex];
+            previuosSelectedTabIndex = newSelectedTabIndex;
+            AbstractTaskPanel.ModelDiff diff = newPanel.calcModelDiff(oldPanel);
+
+            List<Rectangle> rectangles = new ArrayList<>();
+            for (ExecutableResourceComponent erc : diff.getAddedComponents()) {
+                Rectangle rect = erc.getBounds();
+                rectangles.add(SwingUtilities.convertRectangle(erc.getParent(), rect, glassPane));
+            }
+            glassPane.showRectagles(rectangles);
+
+            
+            printProvider.printInfo("Complete make:\n");
+            printProvider.printCode(newPanel.generateMake());
         }
     }
 

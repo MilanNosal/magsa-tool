@@ -1,0 +1,7 @@
+Ukazalo sa, ze poznam kod dobre (az prilis), kedze som jeho autor, ovela narocnejsie to bolo ked som cital a upravoval povodny kod este od Tomasa Putnokiho.
+Teraz je kod do vyraznej miery napisany podla toho ako ja zvyknem pisat kod - co samozrejme neznamena, ze to je sravny/jediny sposob zapisu.
+Zaroven tiez fungovala moja pamat, zatial som si vacsinu zmaerov a aj vztahov pamatal, takze som nemal nejake nutkanie tam nieco dopisovat.
+Viackrat som chcel v kodoch vyhladat nieco, no nevedel som presne co - asi by nepomohol ani fulltext, zdalo sa mi, ze vypis agregovanych roznych pojmov by mohli byt pomocou.
+Raz som sa zastavil nad tym, ze by som anotoval fragment metody, anotacie su len pri metodach a nie vo vnutri, no mozno by stacilo inak prestrukturovat kod.
+
+Ako dolezite sa tu ukazali identifikatory (metody, triedy, premenne), ktore znamenaju primarnu anotaciu.
