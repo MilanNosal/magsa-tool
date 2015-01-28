@@ -1,14 +1,8 @@
 package sk.tuke.magsa.maketool.ui;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Desktop;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.net.URI;
 import java.util.ArrayList;
@@ -17,9 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import sk.tuke.magsa.maketool.PrintProvider;
@@ -99,10 +91,10 @@ public class MainFrame extends javax.swing.JFrame {
 
             //File curr = new File(System.getProperty("user.dir"));
             //TODO - opravit nastavenie cesty
-            File currentDirectory = new File(System.getProperty("user.dir") + "/..");
+            File currentDirectory = new File(System.getProperty("user.dir"));
 
             try {
-                if (!Project.isNetbeansMagsaProject(currentDirectory)) {
+                if (!project.isMagsaProject(currentDirectory)) {
                     JFileChooser chooser = new JFileChooser();
                     chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                     chooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
@@ -111,8 +103,9 @@ public class MainFrame extends javax.swing.JFrame {
                     } else {
                         return;
                     }
+                    project.isMagsaProject(currentDirectory);
                 }
-
+                
                 String path = currentDirectory.getCanonicalPath();
 
                 //Nacitanie a build projektu

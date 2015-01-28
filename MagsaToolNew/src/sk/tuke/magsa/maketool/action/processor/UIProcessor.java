@@ -18,7 +18,9 @@ public class UIProcessor extends MagsaAction {
         String tempSP = System.getProperty("user.dir");
         System.setProperty("user.dir", uidefi.getParentFile().getAbsolutePath());
 
-        Object uiProcessor = uiProcessorClass.getConstructor(Reader.class).newInstance(new FileReader(uidefi));
+        Object uiProcessor = uiProcessorClass.getConstructor(Reader.class, File.class)
+                .newInstance(new FileReader(uidefi), 
+                        new File(MagsaConfig.getInstance().getProjectPath() + "/" + MagsaConfig.getInstance().getUiXSDFile()));
 
         uiProcessorClass.getMethod("compose", MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.metamodel.Model")).invoke(uiProcessor, context.getModel());
 
