@@ -6,9 +6,16 @@ import concerns.ProjectConfiguration;
 import concerns.ProjectConfiguration.ConfigurationValue;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.maven.shared.invoker.DefaultInvocationRequest;
 import org.apache.maven.shared.invoker.DefaultInvoker;
+import org.apache.maven.shared.invoker.InvocationOutputHandler;
 import org.apache.maven.shared.invoker.InvocationRequest;
 import org.apache.maven.shared.invoker.Invoker;
 import org.apache.maven.shared.invoker.MavenInvocationException;
@@ -26,7 +33,7 @@ public class Project {
 
         buildMavenProject();
 
-        MagsaConfig.getInstance().refreshClassLoader();
+        //MagsaConfig.getInstance().refreshClassLoader();
 
         // maly test pre istotu
         MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.metamodel.Model");
@@ -48,5 +55,39 @@ public class Project {
             System.err.println("A problem with Maven build:");
             ex.printStackTrace(System.err);
         }
+    }
+    
+    public URL[] getClassPath() {
+        final List<URL> urls = new ArrayList<>();
+        try {
+            urls.add(new URL("file:///" + MagsaConfig.getInstance().getProjectPath() + "/magsa-generator/target/classes/"));
+            InvocationRequest request = new DefaultInvocationRequest();
+            File pom = new File(MagsaConfig.getInstance().getProjectPath() + "/magsa-generator/pom.xml");
+            request.setPomFile(pom);
+            request.setGoals(Collections.singletonList("dependency:build-classpath"));
+            Invoker invoker = new DefaultInvoker();
+            invoker.setMavenHome(new File(MagsaConfig.getInstance().getProjectPath() + "/magsa-tool-libs/apache-maven-3.2.5"));
+            invoker.setOutputHandler(new InvocationOutputHandler() {
+                @Override
+                public void consumeLine(String line) {
+                    if (!line.startsWith("[")) {
+                        for (String path : line.split(":")) {
+                            try {
+                                urls.add(new URL("file://" + path));
+                            } catch (MalformedURLException ex) {
+                                Logger.getLogger(Project.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                    }
+                }
+            });
+            invoker.execute(request);
+        } catch (MavenInvocationException ex) {
+            System.err.println("A problem with Maven build:");
+            ex.printStackTrace(System.err);
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(Project.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return urls.toArray(new URL[urls.size()]);
     }
 }

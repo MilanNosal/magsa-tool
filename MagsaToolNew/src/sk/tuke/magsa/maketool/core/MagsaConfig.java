@@ -3,11 +3,8 @@ package sk.tuke.magsa.maketool.core;
 import concerns.ProjectCompilation;
 import static concerns.ProjectCompilation.Process;
 import concerns.ProjectConfiguration;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public final class MagsaConfig {
 
@@ -47,13 +44,9 @@ public final class MagsaConfig {
     @ProjectCompilation(Process.CLASS_LOADING)
     @ProjectConfiguration(ProjectConfiguration.ConfigurationValue.PATH)
     public void refreshClassLoader() {
-        try {
-            URL[] urls = new URL[]{new URL("file:///" + projectPath + "/magsa-generator/target/classes/")};
-            ClassLoader loader = new URLClassLoader(urls, originalClassLoader);
-            Thread.currentThread().setContextClassLoader(loader);
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(MagsaConfig.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        URL[] urls = project.getClassPath();
+        ClassLoader loader = new URLClassLoader(urls, originalClassLoader);
+        Thread.currentThread().setContextClassLoader(loader);
     }
 
     @ProjectConfiguration(ProjectConfiguration.ConfigurationValue.PATH)
