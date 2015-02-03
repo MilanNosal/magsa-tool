@@ -19,42 +19,9 @@ import org.apache.maven.shared.invoker.InvocationOutputHandler;
 import org.apache.maven.shared.invoker.InvocationRequest;
 import org.apache.maven.shared.invoker.Invoker;
 import org.apache.maven.shared.invoker.MavenInvocationException;
-import org.codehaus.plexus.util.DirectoryScanner;
 
 public class Project {
-    private final Invoker mavenInvoker;
-
-    public Project() {
-        mavenInvoker = new DefaultInvoker();
-        File mavenHome = findMaven();
-        if (mavenHome != null) {
-            System.err.println("M2_HOME was not set, but Maven was detected at " + mavenHome);
-            mavenInvoker.setMavenHome(mavenHome);
-        }
-    }
-
-    private File findMaven() {
-        if (System.getProperty("maven.home") != null || System.getenv("M2_HOME") != null)
-            return null; // MavenInvoker would not be able to find Maven
-        // Try other environment variable
-        if (System.getenv("MAVEN_HOME") != null)
-            return new File(System.getenv("MAVEN_HOME"));
-        // Try dafult UNIX path
-        File mavenHome = new File("/usr/share/maven");
-        if (mavenHome.exists())
-            return mavenHome;
-        // Try Maven provided with Netbeans
-        DirectoryScanner ds = new DirectoryScanner();
-        ds.setBasedir("C:/Program Files");
-        String[] includes = {"NetBeans*/java/maven"};
-        ds.setIncludes(includes);
-        ds.scan();
-        String[] paths = ds.getIncludedDirectories();
-        if (paths.length >= 1)
-            return new File(paths[0]);
-        
-        return null;
-    }
+    private final Invoker mavenInvoker = new DefaultInvoker();
 
     @ProjectConfiguration(ConfigurationValue.TYPE)
     public boolean isMagsaProject(File dir) throws IOException {
