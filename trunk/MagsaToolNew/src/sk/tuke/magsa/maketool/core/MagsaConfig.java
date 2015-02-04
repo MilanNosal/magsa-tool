@@ -54,6 +54,7 @@ public final class MagsaConfig {
         this.project = project;
         this.projectPath = projectPath;
         refreshClassLoader();
+        System.setProperty("user.dir", projectPath);
     }
 
     public String getConstraintClass() {
