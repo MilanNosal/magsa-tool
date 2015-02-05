@@ -23,6 +23,10 @@ import org.apache.maven.shared.invoker.MavenInvocationException;
 public class Project {
     private final Invoker mavenInvoker = new DefaultInvoker();
 
+    public Project() {
+        mavenInvoker.setMavenHome(MavenFinder.getMavenHome());
+    }
+
     @ProjectConfiguration(ConfigurationValue.TYPE)
     public boolean isMagsaProject(File dir) throws IOException {
         return (new File(dir, "pom.xml")).exists();
@@ -82,6 +86,7 @@ public class Project {
         File pom = new File(MagsaConfig.getInstance().getProjectPath() + "/magsa-generator/pom.xml");
         request.setPomFile(pom);
         request.setGoals(Collections.singletonList(goal));
+        request.setJavaHome(MavenFinder.getJavaHome());
         return request;
     }
 
