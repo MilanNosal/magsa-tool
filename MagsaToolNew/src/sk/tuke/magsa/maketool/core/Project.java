@@ -38,7 +38,7 @@ public class Project {
 
         buildMavenProject();
 
-        //MagsaConfig.getInstance().refreshClassLoader();
+        MagsaConfig.getInstance().refreshClassLoader(getClassPath());
 
         // maly test pre istotu
         MagsaConfig.getInstance().loadClass("sk.tuke.magsa.tools.metamodel.Model");
@@ -56,7 +56,7 @@ public class Project {
         }
     }
 
-    public URL[] getClassPath() {
+    private URL[] getClassPath() {
         final List<URL> urls = new ArrayList<>();
         try {
             urls.add(new File(MagsaConfig.getInstance().getProjectPath() +
