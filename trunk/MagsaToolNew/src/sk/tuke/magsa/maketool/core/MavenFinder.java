@@ -86,7 +86,7 @@ public class MavenFinder {
         Arrays.sort(paths);
         // Get last one as it is probably the newest version
         if (paths.length >= 1)
-            return new File(paths[paths.length-1]);
+            return new File(base, paths[paths.length-1]);
         return null;
     }
 }
