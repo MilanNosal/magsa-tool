@@ -43,8 +43,7 @@ public final class MagsaConfig {
 
     @ProjectCompilation(Process.CLASS_LOADING)
     @ProjectConfiguration(ProjectConfiguration.ConfigurationValue.PATH)
-    public void refreshClassLoader() {
-        URL[] urls = project.getClassPath();
+    public void refreshClassLoader(URL[] urls) {
         ClassLoader loader = new URLClassLoader(urls, originalClassLoader);
         Thread.currentThread().setContextClassLoader(loader);
     }
@@ -53,7 +52,8 @@ public final class MagsaConfig {
     public void setProjectPath(String projectPath, Project project) {
         this.project = project;
         this.projectPath = projectPath;
-        refreshClassLoader();
+        // Change property for current working dir
+        // Have effect only if getAbsolutePath() is used in code working with relative paths
         System.setProperty("user.dir", projectPath);
     }
 
