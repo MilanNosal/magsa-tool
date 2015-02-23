@@ -77,6 +77,8 @@ public class MavenFinder {
     }
 
     private static File findMatchingPath(String base, String pattern) throws IllegalStateException {
+        if (!new File(base).isDirectory())
+            return null;
         DirectoryScanner ds = new DirectoryScanner();
         ds.setBasedir(base);
         String[] includes = {pattern};
