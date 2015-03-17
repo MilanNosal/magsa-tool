@@ -1,0 +1,1 @@
+A visualization tool for academic project MaGSA.
